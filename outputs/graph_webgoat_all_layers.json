@@ -1,0 +1,564 @@
+{
+  "graph_metadata": {
+    "source_file": "outputs/normalized_webgoat_all_layers.json",
+    "generated_at": "2026-10-21T06:46:50.744756+00:00",
+    "schema": "G = (V, E, X, W) -- V: vulnerability nodes only; E: chaining | co_context | shared_root_cause; X: per-node F_i attributes (T,S,A,L,C,W,E); W: per-edge 'weight' field",
+    "co_context_top_k": 2,
+    "networkx_representation": "MultiDiGraph (Multi: a pair may carry edges of several different types; Directed: chaining is directional, co_context/shared_root_cause are symmetric but stored once and treated as undirected via to_undirected() for connectivity checks)",
+    "pyg_directionality_plan": "chaining -> single (source,target) edge_index entry; co_context / shared_root_cause -> expanded to both (source,target) and (target,source) entries at PyG conversion time (Phase 4, not yet implemented)",
+    "node_count": 13,
+    "edge_count": 40,
+    "edge_count_by_type": {
+      "chaining": 2,
+      "co_context": 23,
+      "shared_root_cause": 15
+    },
+    "isolated_node_count": 0,
+    "isolated_node_ids": [],
+    "networkx_check": null
+  },
+  "nodes": [
+    {
+      "node_id": "VULN_001",
+      "original_id": "d7e33dee-c421-4516-9ee8-9abb1e414eca",
+      "name": "Open port 8081/tcp (http)",
+      "description": "Port 8081/tcp is open running http Apache Tomcat",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T15:01:52.411519+00:00",
+      "F": {
+        "T": "open_port",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "port=8081, proto=tcp, service=http, product=Apache Tomcat, version=",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_002",
+      "original_id": "622f2493-17ea-4ff9-a828-b3203252ed59",
+      "name": "Weak/unencrypted protocol in use: http",
+      "description": "http transmits data without encryption.",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T15:01:52.412128+00:00",
+      "F": {
+        "T": "weak_protocol",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "service=http, port=8081",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_003",
+      "original_id": "5964ad86-0ebf-44c1-bf3f-48cb0bf0d17f",
+      "name": "No TLS/HTTPS listener",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "target": "127.0.0.1:443",
+      "timestamp": "2026-09-15T15:01:52.425808+00:00",
+      "F": {
+        "T": "missing_tls_cert",
+        "S": "medium",
+        "A": "127.0.0.1",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "[Errno 61] Connection refused",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_004",
+      "original_id": "3464baf5-d64d-4d44-97dc-9e57664b56db",
+      "name": "Missing HSTS header",
+      "description": "Response does not set Strict-Transport-Security.",
+      "target": "http://localhost:8081/WebGoat",
+      "timestamp": "2026-09-15T15:01:52.455923+00:00",
+      "F": {
+        "T": "missing_hsts",
+        "S": "medium",
+        "A": "http://localhost:8081/WebGoat",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Content-Type', 'Content-Language', 'Transfer-Encoding', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_005",
+      "original_id": "7b05dba2-9a89-483f-83d8-ad84cacf2c27",
+      "name": "Missing security header: Content-Security-Policy",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "target": "http://localhost:8081/WebGoat",
+      "timestamp": "2026-09-15T15:01:52.462754+00:00",
+      "F": {
+        "T": "missing_csp",
+        "S": "medium",
+        "A": "http://localhost:8081/WebGoat",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Content-Type', 'Content-Language', 'Transfer-Encoding', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_006",
+      "original_id": "6f990420-6262-4a35-8fed-3dce70320c4a",
+      "name": "Missing security header: X-Frame-Options",
+      "description": "Response does not set the X-Frame-Options header.",
+      "target": "http://localhost:8081/WebGoat",
+      "timestamp": "2026-09-15T15:01:52.462772+00:00",
+      "F": {
+        "T": "missing_xfo",
+        "S": "medium",
+        "A": "http://localhost:8081/WebGoat",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Content-Type', 'Content-Language', 'Transfer-Encoding', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_007",
+      "original_id": "b862e4c4-1bd8-4332-b26f-0552027186ed",
+      "name": "Missing security header: X-Content-Type-Options",
+      "description": "Response does not set the X-Content-Type-Options header.",
+      "target": "http://localhost:8081/WebGoat",
+      "timestamp": "2026-09-15T15:01:52.462781+00:00",
+      "F": {
+        "T": "missing_xcto",
+        "S": "low",
+        "A": "http://localhost:8081/WebGoat",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Content-Type', 'Content-Language', 'Transfer-Encoding', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_008",
+      "original_id": "8e579b0d-43ca-48a7-81e6-48cb084cdfad",
+      "name": "Missing Anti-clickjacking Header",
+      "description": "The response does not protect against 'ClickJacking' attacks. It should include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options.",
+      "target": "http://host.docker.internal:8081/WebGoat/login",
+      "timestamp": "2026-09-15T15:05:11.024069+00:00",
+      "F": {
+        "T": "missing_xfo",
+        "S": "medium",
+        "A": "http://host.docker.internal:8081/WebGoat",
+        "L": "application",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "parameter=x-frame-options | url=http://host.docker.internal:8081/WebGoat/login | zap_plugin_id=10020 | parameter=x-frame-options | url=http://host.docker.internal:8081/WebGoat/registration | zap_plugin_id=10020 | parameter=x-frame-options | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10020 | parameter=x-frame-options | url=http://host.docker.internal:8081/WebGoat/login?error | zap_plugin_id=10020",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_009",
+      "original_id": "5db32b57-a065-44db-8937-789cfcc98283",
+      "name": "Content Security Policy (CSP) Header Not Set",
+      "description": "Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.",
+      "target": "http://host.docker.internal:8081/WebGoat/login",
+      "timestamp": "2026-09-15T15:05:11.024204+00:00",
+      "F": {
+        "T": "missing_csp",
+        "S": "medium",
+        "A": "http://host.docker.internal:8081/WebGoat",
+        "L": "application",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "url=http://host.docker.internal:8081/WebGoat/login | zap_plugin_id=10038 | url=http://host.docker.internal:8081/WebGoat/login?error | zap_plugin_id=10038 | url=http://host.docker.internal:8081/WebGoat/registration | zap_plugin_id=10038 | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10038",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_010",
+      "original_id": "23e64b71-6ba3-4fb1-8d61-eef906db74e0",
+      "name": "X-Content-Type-Options Header Missing",
+      "description": "The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.",
+      "target": "http://host.docker.internal:8081/WebGoat/css/main.css",
+      "timestamp": "2026-09-15T15:05:11.024237+00:00",
+      "F": {
+        "T": "missing_xcto",
+        "S": "low",
+        "A": "http://host.docker.internal:8081/WebGoat",
+        "L": "application",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/css/main.css | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/css/font-awesome.min.css | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/login | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/css/img/favicon.ico | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/css/animate.css | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/plugins/bootstrap/css/bootstrap.min.css | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/login?error | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/registration | zap_plugin_id=10021 | parameter=x-content-type-options | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10021",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_011",
+      "original_id": "90d40192-a82b-46e3-a8e3-442513a067a3",
+      "name": "User Controllable HTML Element Attribute (Potential XSS)",
+      "description": "Potential XSS detected by OWASP ZAP. Requires manual verification before being treated as a confirmed vulnerability. This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.",
+      "target": "http://host.docker.internal:8081/WebGoat/register.mvc",
+      "timestamp": "2026-09-15T15:05:11.024463+00:00",
+      "F": {
+        "T": "xss",
+        "S": "info",
+        "A": "http://host.docker.internal:8081/WebGoat",
+        "L": "application",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "parameter=matchingPassword | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10031 | parameter=password | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10031 | parameter=username | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10031 | parameter=agree | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=10031",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_012",
+      "original_id": "a4abb3a7-15b8-485d-a180-63ac8e51bb01",
+      "name": "SQL Injection",
+      "description": "SQL injection may be possible.",
+      "target": "http://host.docker.internal:8081/WebGoat/register.mvc",
+      "timestamp": "2026-09-15T15:05:11.024650+00:00",
+      "F": {
+        "T": "sqli",
+        "S": "high",
+        "A": "http://host.docker.internal:8081/WebGoat",
+        "L": "application",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "parameter=agree | url=http://host.docker.internal:8081/WebGoat/register.mvc | zap_plugin_id=40018",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_013",
+      "original_id": "12c5bdb1-eda4-419c-aab1-52cdffa60a59",
+      "name": "No rate limiting detected on endpoint",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "target": "http://localhost:8081/WebGoat",
+      "timestamp": "2026-09-15T15:05:11.225606+00:00",
+      "F": {
+        "T": "missing_rate_limit",
+        "S": "medium",
+        "A": "http://localhost:8081/WebGoat",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "method=GET, requests_sent=20, throttled=False",
+        "E": null
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "VULN_011",
+      "target": "VULN_008",
+      "type": "chaining",
+      "weight": 0.45,
+      "reason": "Missing X-Frame-Options can be combined with XSS for clickjacking-assisted exploitation of the same page."
+    },
+    {
+      "source": "VULN_011",
+      "target": "VULN_009",
+      "type": "chaining",
+      "weight": 0.9,
+      "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding."
+    },
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network')."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_005",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_006",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_013",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_013",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_013",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_013",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_009",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_010",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_011",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_012",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_009",
+      "target": "VULN_010",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_009",
+      "target": "VULN_011",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_009",
+      "target": "VULN_012",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_010",
+      "target": "VULN_011",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_010",
+      "target": "VULN_012",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."
+    },
+    {
+      "source": "VULN_011",
+      "target": "VULN_012",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/register.mvc'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_001",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_002",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_004",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_007",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_008",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_010",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_009",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_010",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_008",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_009",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_009",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_008",
+      "target": "VULN_010",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_009",
+      "target": "VULN_010",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_011",
+      "target": "VULN_012",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family."
+    }
+  ]
+}

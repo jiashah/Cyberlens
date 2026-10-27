@@ -1,0 +1,1814 @@
+{
+  "dataset": "sample_scan_output",
+  "vulnerability_count": 20,
+  "priority_summary": {
+    "P1 - Fix immediately": 6,
+    "P2 - Fix soon": 9,
+    "P3 - Schedule": 4,
+    "P4 - Low / monitor": 1
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_014",
+      "name": "Default/weak credentials accepted",
+      "type": "broken_auth",
+      "layer": "api",
+      "scanner_severity": "critical",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 10.0,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "chaining",
+          "weight": 0.85,
+          "reason": "Successfully authenticating with default/weak credentials grants a valid session that can then be used to probe IDOR-vulnerable endpoints.",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "chaining",
+          "weight": 0.8,
+          "reason": "Absence of rate limiting on an auth endpoint enables brute-forcing of the same weak/default credentials flagged by the broken-auth finding.",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_020",
+          "name": "Outdated PHP version detected: 7.2.1",
+          "vuln_type": "outdated_fingerprint",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.52
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Remove default credentials, enforce strong passwords and MFA.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_012",
+      "name": "Cross Site Scripting (Reflected)",
+      "type": "xss",
+      "layer": "application",
+      "scanner_severity": "high",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 9.87,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "chaining",
+          "weight": 0.9,
+          "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding.",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "chaining",
+          "weight": 0.85,
+          "reason": "Without the HttpOnly flag, a successful XSS payload can read the session cookie directly, escalating XSS impact to session hijacking.",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family.",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('application').",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "chaining",
+          "weight": 0.45,
+          "reason": "Missing X-Frame-Options can be combined with XSS for clickjacking-assisted exploitation of the same page.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Context-aware output encoding, input validation and a strict CSP.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_013",
+      "name": "SQL Injection",
+      "type": "sqli",
+      "layer": "application",
+      "scanner_severity": "high",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 8.75,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:3000/rest/products/search'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "chaining",
+          "weight": 0.8,
+          "reason": "Verbose error / stack-trace leakage on the same target helps an attacker refine SQL Injection payloads (classic error-based SQLi workflow).",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family.",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('application').",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Use parameterised queries / an ORM; validate and escape all input.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "Outdated vsftpd banner: 2.3.4",
+      "type": "outdated_service_banner",
+      "layer": "network",
+      "scanner_severity": "high",
+      "asset": "192.168.56.101",
+      "scanner_cvss": null,
+      "predicted_score": 8.28,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_019",
+          "name": "Vulnerable dependency: lodash 4.17.11",
+          "vuln_type": "vulnerable_dependency",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.02
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_020",
+          "name": "Outdated PHP version detected: 7.2.1",
+          "vuln_type": "outdated_fingerprint",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.52
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 21/tcp (ftp)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 4.96
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "chaining",
+          "weight": 0.5,
+          "reason": "An outdated service version combined with a weak/unencrypted protocol on the same port expands the exploitable surface of that service.",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Upgrade the service and hide version banners.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_019",
+      "name": "Vulnerable dependency: lodash 4.17.11",
+      "type": "vulnerable_dependency",
+      "layer": "dependency",
+      "scanner_severity": "high",
+      "asset": "./sample_target_project",
+      "scanner_cvss": null,
+      "predicted_score": 8.02,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_020",
+          "name": "Outdated PHP version detected: 7.2.1",
+          "vuln_type": "outdated_fingerprint",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.52
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Upgrade the dependency to a fixed version.",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "Weak TLS version negotiated: TLSv1.1",
+      "type": "weak_cipher_tls_version",
+      "layer": "ssl",
+      "scanner_severity": "high",
+      "asset": "192.168.56.101",
+      "scanner_cvss": null,
+      "predicted_score": 7.5,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('192.168.56.101:443'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 7.35
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 7.35
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 21/tcp (ftp)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 4.96
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Disable TLS<1.2 and weak ciphers.",
+      "rank": 6
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Invalid/untrusted TLS certificate",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "high",
+      "asset": "192.168.56.101",
+      "scanner_cvss": null,
+      "predicted_score": 7.35,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('192.168.56.101:443'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 21/tcp (ftp)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 4.96
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 7
+    },
+    {
+      "node_id": "VULN_015",
+      "name": "Potential IDOR via sequential 'id' parameter",
+      "type": "idor",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 6.76,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "chaining",
+          "weight": 0.85,
+          "reason": "Successfully authenticating with default/weak credentials grants a valid session that can then be used to probe IDOR-vulnerable endpoints.",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.75
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Enforce server-side object-level authorisation on every request.",
+      "rank": 8
+    },
+    {
+      "node_id": "VULN_016",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 6.73,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:3000/rest/products/search'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "chaining",
+          "weight": 0.8,
+          "reason": "Absence of rate limiting on an auth endpoint enables brute-forcing of the same weak/default credentials flagged by the broken-auth finding.",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_017",
+          "name": "Verbose error / stack trace leakage",
+          "vuln_type": "verbose_error",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 5.57
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 9
+    },
+    {
+      "node_id": "VULN_007",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.8,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "chaining",
+          "weight": 0.9,
+          "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding.",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 10
+    },
+    {
+      "node_id": "VULN_011",
+      "name": "Cookie 'session' missing HttpOnly flag",
+      "type": "cookie_missing_httponly",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.72,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "chaining",
+          "weight": 0.85,
+          "reason": "Without the HttpOnly flag, a successful XSS payload can read the session cookie directly, escalating XSS impact to session hijacking.",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'cookie_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Set the HttpOnly flag on session cookies.",
+      "rank": 11
+    },
+    {
+      "node_id": "VULN_018",
+      "name": "Outdated JS library: jquery 3.1.1",
+      "type": "outdated_js_library",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.72,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_019",
+          "name": "Vulnerable dependency: lodash 4.17.11",
+          "vuln_type": "vulnerable_dependency",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.02
+        },
+        {
+          "node_id": "VULN_020",
+          "name": "Outdated PHP version detected: 7.2.1",
+          "vuln_type": "outdated_fingerprint",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.52
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_020",
+          "name": "Outdated PHP version detected: 7.2.1",
+          "vuln_type": "outdated_fingerprint",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.52
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Upgrade the client-side library to a patched release.",
+      "rank": 12
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "Weak/unencrypted protocol in use: ftp",
+      "type": "weak_protocol",
+      "layer": "network",
+      "scanner_severity": "medium",
+      "asset": "192.168.56.101",
+      "scanner_cvss": null,
+      "predicted_score": 5.66,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 21/tcp (ftp)",
+          "vuln_type": "open_port",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 4.96
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 21/tcp (ftp)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 4.96
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "chaining",
+          "weight": 0.5,
+          "reason": "An outdated service version combined with a weak/unencrypted protocol on the same port expands the exploitable surface of that service.",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Replace the cleartext protocol with its encrypted equivalent.",
+      "rank": 13
+    },
+    {
+      "node_id": "VULN_017",
+      "name": "Verbose error / stack trace leakage",
+      "type": "verbose_error",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.57,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "chaining",
+          "weight": 0.8,
+          "reason": "Verbose error / stack-trace leakage on the same target helps an attacker refine SQL Injection payloads (classic error-based SQLi workflow).",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_015",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.76
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 6.73
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.75
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Return generic error pages; log stack traces server-side only.",
+      "rank": 14
+    },
+    {
+      "node_id": "VULN_020",
+      "name": "Outdated PHP version detected: 7.2.1",
+      "type": "outdated_fingerprint",
+      "layer": "fingerprint",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.52,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_019",
+          "name": "Vulnerable dependency: lodash 4.17.11",
+          "vuln_type": "vulnerable_dependency",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 8.02
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'outdated_component_gap' configuration-weakness family.",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.72
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Upgrade the detected component to a supported version.",
+      "rank": 15
+    },
+    {
+      "node_id": "VULN_008",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.36,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "chaining",
+          "weight": 0.45,
+          "reason": "Missing X-Frame-Options can be combined with XSS for clickjacking-assisted exploitation of the same page.",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 16
+    },
+    {
+      "node_id": "VULN_010",
+      "name": "Cookie 'session' missing Secure flag",
+      "type": "cookie_missing_secure",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.32,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'cookie_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 3.35
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Set the Secure flag on session cookies.",
+      "rank": 17
+    },
+    {
+      "node_id": "VULN_006",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.29,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 7.35
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 8.75
+        },
+        {
+          "node_id": "VULN_016",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 6.73
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 18
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 21/tcp (ftp)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "medium",
+      "asset": "192.168.56.101",
+      "scanner_cvss": null,
+      "predicted_score": 4.96,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Outdated vsftpd banner: 2.3.4",
+          "vuln_type": "outdated_service_banner",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 8.28
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Weak/unencrypted protocol in use: ftp",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '192.168.56.101' and the same security layer ('network').",
+          "predicted_score": 5.66
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Weak TLS version negotiated: TLSv1.1",
+          "vuln_type": "weak_cipher_tls_version",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.5
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Invalid/untrusted TLS certificate",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '192.168.56.101' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 19
+    },
+    {
+      "node_id": "VULN_009",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "layer": "client",
+      "scanner_severity": "low",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 3.35,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.8
+        },
+        {
+          "node_id": "VULN_018",
+          "name": "Outdated JS library: jquery 3.1.1",
+          "vuln_type": "outdated_js_library",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Cookie 'session' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.72
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Cookie 'session' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('client').",
+          "predicted_score": 5.32
+        },
+        {
+          "node_id": "VULN_014",
+          "name": "Default/weak credentials accepted",
+          "vuln_type": "broken_auth",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 10.0
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "Cross Site Scripting (Reflected)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.87
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 20
+    }
+  ]
+}

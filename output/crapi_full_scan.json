@@ -1,0 +1,74 @@
+{
+  "scan_metadata": {
+    "target_url": "http://localhost:8888/identity/api/auth/login",
+    "target_host": "127.0.0.1",
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-08-18T11:56:48.219877+00:00",
+    "errors": []
+  },
+  "findings": [
+    {
+      "layer": "ssl",
+      "target": "127.0.0.1:443",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "severity": "medium",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "evidence": "[Errno 61] Connection refused",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "2eb93a25-d32e-4d5e-bcf0-a98d6dddb5c9",
+      "timestamp": "2026-08-18T11:56:47.489210+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8888/identity/api/auth/login",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "severity": "medium",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "evidence": "headers_present=['Server', 'Date', 'Content-Type', 'Transfer-Encoding', 'Connection', 'Vary', 'Allow', 'X-Content-Type-Options', 'X-XSS-Protection', 'Cache-Control', 'Pragma', 'Expires', 'Strict-Transport-Security', 'X-Frame-Options']",
+      "asset": "http://localhost:8888/identity/api/auth/login",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "59b09a52-f99c-47d8-9fa8-7f8f8b40643a",
+      "timestamp": "2026-08-18T11:56:47.533820+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:8888/identity/api/auth/login",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "severity": "medium",
+      "description": "Sent 20 rapid POST requests (matching the endpoint's real method) with no throttling response (429/Retry-After).",
+      "evidence": "method=POST, requests_sent=20, throttled=False",
+      "asset": "http://localhost:8888/identity/api/auth/login",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "4aea3b66-cc77-4aa0-8314-323a81fec626",
+      "timestamp": "2026-08-18T11:56:47.803961+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:8888/workshop/api/shop/orders",
+      "name": "Potential IDOR/BOLA via sequential object IDs",
+      "type": "idor",
+      "severity": "medium",
+      "description": "5 sequential object IDs returned 200 OK using a single user's session \u2014 objects belonging to other users may be accessible. Flag for manual verification.",
+      "evidence": "tested_ids=[1, 2, 3, 4, 5], results=[(1, 200, 540), (2, 200, 548), (3, 200, 548), (4, 200, 546), (5, 200, 545)]",
+      "asset": "http://localhost:8888/workshop/api/shop/orders",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "6b9ef93d-2086-46ad-a92b-d4fc7e98a4d5",
+      "timestamp": "2026-08-18T11:56:48.066153+00:00"
+    }
+  ]
+}

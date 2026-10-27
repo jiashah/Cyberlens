@@ -1,0 +1,470 @@
+{
+  "dataset": "vulnerableapp_full_scan",
+  "vulnerability_count": 8,
+  "priority_summary": {
+    "P1 - Fix immediately": 0,
+    "P2 - Fix soon": 0,
+    "P3 - Schedule": 6,
+    "P4 - Low / monitor": 2
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_003",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.44,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.19
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8091/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 2.97
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "scanner_cvss": null,
+      "predicted_score": 5.36,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_008",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.31
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.19
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.16
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.16
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.16
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.16
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_008",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "scanner_cvss": null,
+      "predicted_score": 5.31,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.19
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.16
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.16
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "scanner_cvss": null,
+      "predicted_score": 5.19,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.31
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.16
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.16
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.44
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_006",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "scanner_cvss": null,
+      "predicted_score": 5.16,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.31
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.19
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.16
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.16
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 3.55,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8091/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8091/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Replace the cleartext protocol with its encrypted equivalent.",
+      "rank": 6
+    },
+    {
+      "node_id": "VULN_007",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "layer": "client",
+      "scanner_severity": "low",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "scanner_cvss": null,
+      "predicted_score": 3.16,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.31
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.19
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.16
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.16
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 7
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 8091/tcp (http)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 2.97,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 8
+    }
+  ]
+}

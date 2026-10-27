@@ -1,0 +1,946 @@
+{
+  "dataset": "webgoat_all_layers",
+  "vulnerability_count": 13,
+  "priority_summary": {
+    "P1 - Fix immediately": 1,
+    "P2 - Fix soon": 2,
+    "P3 - Schedule": 8,
+    "P4 - Low / monitor": 2
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_012",
+      "name": "SQL Injection",
+      "type": "sqli",
+      "layer": "application",
+      "scanner_severity": "high",
+      "asset": "http://host.docker.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 8.21,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/register.mvc'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.63
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family.",
+          "predicted_score": 3.63
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.52
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Use parameterised queries / an ORM; validate and escape all input.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_009",
+      "name": "Content Security Policy (CSP) Header Not Set",
+      "type": "missing_csp",
+      "layer": "application",
+      "scanner_severity": "medium",
+      "asset": "http://host.docker.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.91,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "chaining",
+          "weight": 0.9,
+          "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding.",
+          "predicted_score": 3.63
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.31
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 8.21
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.63
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.52
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.56,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.38
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.31
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.31
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.46,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8081/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 2.97
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_008",
+      "name": "Missing Anti-clickjacking Header",
+      "type": "missing_xfo",
+      "layer": "application",
+      "scanner_severity": "medium",
+      "asset": "http://host.docker.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.44,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.31
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 8.21
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.63
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "chaining",
+          "weight": 0.45,
+          "reason": "Missing X-Frame-Options can be combined with XSS for clickjacking-assisted exploitation of the same page.",
+          "predicted_score": 3.63
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_013",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.38,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.31
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 6
+    },
+    {
+      "node_id": "VULN_006",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.3,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.38
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.31
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.31
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 7
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.21,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.38
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 3.31
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.46
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 8
+    },
+    {
+      "node_id": "VULN_011",
+      "name": "User Controllable HTML Element Attribute (Potential XSS)",
+      "type": "xss",
+      "layer": "application",
+      "scanner_severity": "info",
+      "asset": "http://host.docker.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 3.63,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "chaining",
+          "weight": 0.9,
+          "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/register.mvc'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 8.21
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family.",
+          "predicted_score": 8.21
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.52
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "chaining",
+          "weight": 0.45,
+          "reason": "Missing X-Frame-Options can be combined with XSS for clickjacking-assisted exploitation of the same page.",
+          "predicted_score": 5.44
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Context-aware output encoding, input validation and a strict CSP.",
+      "rank": 9
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 3.55,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8081/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8081/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.46
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Replace the cleartext protocol with its encrypted equivalent.",
+      "rank": 10
+    },
+    {
+      "node_id": "VULN_010",
+      "name": "X-Content-Type-Options Header Missing",
+      "type": "missing_xcto",
+      "layer": "application",
+      "scanner_severity": "low",
+      "asset": "http://host.docker.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 3.52,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "SQL Injection",
+          "vuln_type": "sqli",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 8.21
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "User Controllable HTML Element Attribute (Potential XSS)",
+          "vuln_type": "xss",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application').",
+          "predicted_score": 3.63
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 11
+    },
+    {
+      "node_id": "VULN_007",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "layer": "client",
+      "scanner_severity": "low",
+      "asset": "http://localhost:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 3.31,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.38
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.91
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.56
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.3
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 12
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 8081/tcp (http)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 2.97,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.46
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 13
+    }
+  ]
+}

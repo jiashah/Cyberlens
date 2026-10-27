@@ -1,0 +1,36 @@
+{
+  "source_graph": "outputs/graph_dvwa_all_layers.json",
+  "source_features": "outputs/features_dvwa_all_layers.json",
+  "num_nodes": 13,
+  "feature_dim": 33,
+  "num_directed_edges_in_edge_index": 84,
+  "directed_edge_count_by_type": {
+    "chaining": 0,
+    "co_context": 54,
+    "shared_root_cause": 30
+  },
+  "edge_attr_dim": 4,
+  "edge_attr_layout": [
+    "chaining",
+    "co_context",
+    "shared_root_cause",
+    "weight"
+  ],
+  "symmetric_edge_types_expanded_to_both_directions": [
+    "co_context",
+    "shared_root_cause"
+  ],
+  "directional_edge_types_kept_single_direction": [
+    "chaining"
+  ],
+  "isolated_node_ids": [],
+  "y_status": "not set (None) -- see module docstring 'Why there is no y yet'; requires Phase 7 (Training Target) to be done first",
+  "original_graph_node_count": 13,
+  "original_graph_edge_count": 42,
+  "original_graph_edge_count_by_type": {
+    "co_context": 27,
+    "shared_root_cause": 15
+  },
+  "conversion_warnings": [],
+  "pyg_validate": "passed"
+}

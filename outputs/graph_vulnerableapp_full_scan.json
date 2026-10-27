@@ -1,0 +1,309 @@
+{
+  "graph_metadata": {
+    "source_file": "outputs/normalized_vulnerableapp_full_scan.json",
+    "generated_at": "2026-10-21T06:46:50.246321+00:00",
+    "schema": "G = (V, E, X, W) -- V: vulnerability nodes only; E: chaining | co_context | shared_root_cause; X: per-node F_i attributes (T,S,A,L,C,W,E); W: per-edge 'weight' field",
+    "co_context_top_k": 2,
+    "networkx_representation": "MultiDiGraph (Multi: a pair may carry edges of several different types; Directed: chaining is directional, co_context/shared_root_cause are symmetric but stored once and treated as undirected via to_undirected() for connectivity checks)",
+    "pyg_directionality_plan": "chaining -> single (source,target) edge_index entry; co_context / shared_root_cause -> expanded to both (source,target) and (target,source) entries at PyG conversion time (Phase 4, not yet implemented)",
+    "node_count": 8,
+    "edge_count": 18,
+    "edge_count_by_type": {
+      "co_context": 13,
+      "shared_root_cause": 5
+    },
+    "isolated_node_count": 0,
+    "isolated_node_ids": [],
+    "networkx_check": null
+  },
+  "nodes": [
+    {
+      "node_id": "VULN_001",
+      "original_id": "41a018d4-7882-4af6-bea8-121e170e724d",
+      "name": "Open port 8091/tcp (http)",
+      "description": "Port 8091/tcp is open running http Apache Tomcat",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T21:01:57.212336+00:00",
+      "F": {
+        "T": "open_port",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "port=8091, proto=tcp, service=http, product=Apache Tomcat, version=",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_002",
+      "original_id": "9bcb82f8-a336-44c4-89a5-b7621546caab",
+      "name": "Weak/unencrypted protocol in use: http",
+      "description": "http transmits data without encryption.",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T21:01:57.212725+00:00",
+      "F": {
+        "T": "weak_protocol",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "service=http, port=8091",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_003",
+      "original_id": "fe45d64e-c633-4320-8865-038b2b7be590",
+      "name": "No TLS/HTTPS listener",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "target": "127.0.0.1:443",
+      "timestamp": "2026-09-15T21:01:57.225129+00:00",
+      "F": {
+        "T": "missing_tls_cert",
+        "S": "medium",
+        "A": "127.0.0.1",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "[Errno 61] Connection refused",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_004",
+      "original_id": "189543cb-d06d-4ccd-b91c-d258a461315f",
+      "name": "Missing HSTS header",
+      "description": "Response does not set Strict-Transport-Security.",
+      "target": "http://localhost:8091/VulnerableApp",
+      "timestamp": "2026-09-15T21:01:57.255142+00:00",
+      "F": {
+        "T": "missing_hsts",
+        "S": "medium",
+        "A": "http://localhost:8091/VulnerableApp",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_005",
+      "original_id": "b65b97d0-c718-40a7-b3b3-7130a46fd999",
+      "name": "Missing security header: Content-Security-Policy",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "target": "http://localhost:8091/VulnerableApp",
+      "timestamp": "2026-09-15T21:01:57.261162+00:00",
+      "F": {
+        "T": "missing_csp",
+        "S": "medium",
+        "A": "http://localhost:8091/VulnerableApp",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_006",
+      "original_id": "2b083684-d338-4ce4-9b54-f6d166d1cec7",
+      "name": "Missing security header: X-Frame-Options",
+      "description": "Response does not set the X-Frame-Options header.",
+      "target": "http://localhost:8091/VulnerableApp",
+      "timestamp": "2026-09-15T21:01:57.261180+00:00",
+      "F": {
+        "T": "missing_xfo",
+        "S": "medium",
+        "A": "http://localhost:8091/VulnerableApp",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_007",
+      "original_id": "a82b1c03-4134-4f91-a0b6-33bd48820069",
+      "name": "Missing security header: X-Content-Type-Options",
+      "description": "Response does not set the X-Content-Type-Options header.",
+      "target": "http://localhost:8091/VulnerableApp",
+      "timestamp": "2026-09-15T21:01:57.261191+00:00",
+      "F": {
+        "T": "missing_xcto",
+        "S": "low",
+        "A": "http://localhost:8091/VulnerableApp",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_008",
+      "original_id": "fff8af4b-3fe8-4393-a97d-90859e77eb50",
+      "name": "No rate limiting detected on endpoint",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "target": "http://localhost:8091/VulnerableApp",
+      "timestamp": "2026-09-15T21:04:15.713354+00:00",
+      "F": {
+        "T": "missing_rate_limit",
+        "S": "medium",
+        "A": "http://localhost:8091/VulnerableApp",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "method=GET, requests_sent=20, throttled=False",
+        "E": null
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network')."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_005",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_006",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.85,
+      "reason": "Both findings share the exact same target ('http://localhost:8091/VulnerableApp'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_002",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_001",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_004",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_007",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    }
+  ]
+}

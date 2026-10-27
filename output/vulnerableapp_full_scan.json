@@ -1,0 +1,136 @@
+{
+  "scan_metadata": {
+    "target_url": "http://localhost:8091/VulnerableApp",
+    "target_host": "127.0.0.1",
+    "network_ports": "8091",
+    "ssl_port": 443,
+    "zap_target": null,
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "application",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-09-15T21:04:15.744058+00:00",
+    "errors": [
+      "app_scanner: HTTPConnectionPool(host='127.0.0.1', port=8080): Max retries exceeded with url: http://zap/JSON/ascan/view/status/?scanId=0 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))"
+    ]
+  },
+  "findings": [
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Open port 8091/tcp (http)",
+      "type": "open_port",
+      "severity": "low",
+      "description": "Port 8091/tcp is open running http Apache Tomcat",
+      "evidence": "port=8091, proto=tcp, service=http, product=Apache Tomcat, version=",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "41a018d4-7882-4af6-bea8-121e170e724d",
+      "timestamp": "2026-09-15T21:01:57.212336+00:00"
+    },
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "severity": "low",
+      "description": "http transmits data without encryption.",
+      "evidence": "service=http, port=8091",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "9bcb82f8-a336-44c4-89a5-b7621546caab",
+      "timestamp": "2026-09-15T21:01:57.212725+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "127.0.0.1:443",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "severity": "medium",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "evidence": "[Errno 61] Connection refused",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "fe45d64e-c633-4320-8865-038b2b7be590",
+      "timestamp": "2026-09-15T21:01:57.225129+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "http://localhost:8091/VulnerableApp",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "severity": "medium",
+      "description": "Response does not set Strict-Transport-Security.",
+      "evidence": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "189543cb-d06d-4ccd-b91c-d258a461315f",
+      "timestamp": "2026-09-15T21:01:57.255142+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8091/VulnerableApp",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "severity": "medium",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "evidence": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "b65b97d0-c718-40a7-b3b3-7130a46fd999",
+      "timestamp": "2026-09-15T21:01:57.261162+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8091/VulnerableApp",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "severity": "medium",
+      "description": "Response does not set the X-Frame-Options header.",
+      "evidence": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "2b083684-d338-4ce4-9b54-f6d166d1cec7",
+      "timestamp": "2026-09-15T21:01:57.261180+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8091/VulnerableApp",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "severity": "low",
+      "description": "Response does not set the X-Content-Type-Options header.",
+      "evidence": "headers_present=['Vary', 'Last-Modified', 'Accept-Ranges', 'Content-Type', 'Content-Language', 'Content-Length', 'Date', 'Keep-Alive', 'Connection']",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "a82b1c03-4134-4f91-a0b6-33bd48820069",
+      "timestamp": "2026-09-15T21:01:57.261191+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:8091/VulnerableApp",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "severity": "medium",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "evidence": "method=GET, requests_sent=20, throttled=False",
+      "asset": "http://localhost:8091/VulnerableApp",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "fff8af4b-3fe8-4393-a97d-90859e77eb50",
+      "timestamp": "2026-09-15T21:04:15.713354+00:00"
+    }
+  ]
+}

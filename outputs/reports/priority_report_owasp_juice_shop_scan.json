@@ -1,0 +1,276 @@
+{
+  "dataset": "owasp_juice_shop_scan",
+  "vulnerability_count": 6,
+  "priority_summary": {
+    "P1 - Fix immediately": 0,
+    "P2 - Fix soon": 1,
+    "P3 - Schedule": 4,
+    "P4 - Low / monitor": 1
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_006",
+      "name": "Potential IDOR via sequential 'id' parameter",
+      "type": "idor",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.97,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 5.45
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 5.45
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.24
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Enforce server-side object-level authorisation on every request.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.45,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_003",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.24
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 3000/tcp (ppp)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 1.35
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.45,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_006",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 5.97
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api').",
+          "predicted_score": 5.97
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.24
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.24,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.45
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.97
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.45
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:3000",
+      "scanner_cvss": null,
+      "predicted_score": 5.21,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_006",
+          "name": "Potential IDOR via sequential 'id' parameter",
+          "vuln_type": "idor",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.97
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.45
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.24
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 3000/tcp (ppp)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "info",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 1.35,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.45
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 6
+    }
+  ]
+}

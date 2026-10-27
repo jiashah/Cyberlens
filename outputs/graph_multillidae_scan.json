@@ -1,0 +1,309 @@
+{
+  "graph_metadata": {
+    "source_file": "outputs/normalized_multillidae_scan.json",
+    "generated_at": "2026-10-21T06:46:47.651197+00:00",
+    "schema": "G = (V, E, X, W) -- V: vulnerability nodes only; E: chaining | co_context | shared_root_cause; X: per-node F_i attributes (T,S,A,L,C,W,E); W: per-edge 'weight' field",
+    "co_context_top_k": 2,
+    "networkx_representation": "MultiDiGraph (Multi: a pair may carry edges of several different types; Directed: chaining is directional, co_context/shared_root_cause are symmetric but stored once and treated as undirected via to_undirected() for connectivity checks)",
+    "pyg_directionality_plan": "chaining -> single (source,target) edge_index entry; co_context / shared_root_cause -> expanded to both (source,target) and (target,source) entries at PyG conversion time (Phase 4, not yet implemented)",
+    "node_count": 8,
+    "edge_count": 18,
+    "edge_count_by_type": {
+      "co_context": 13,
+      "shared_root_cause": 5
+    },
+    "isolated_node_count": 0,
+    "isolated_node_ids": [],
+    "networkx_check": null
+  },
+  "nodes": [
+    {
+      "node_id": "VULN_001",
+      "original_id": "a41360d0-5313-43b2-87da-d69862254100",
+      "name": "Open port 8888/tcp (http)",
+      "description": "Port 8888/tcp is open running http Apache httpd 2.4.68",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T17:56:08.574624+00:00",
+      "F": {
+        "T": "open_port",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "port=8888, proto=tcp, service=http, product=Apache httpd, version=2.4.68",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_002",
+      "original_id": "e81b41ec-1653-4fc7-b0ba-6d58fd0449cd",
+      "name": "Weak/unencrypted protocol in use: http",
+      "description": "http transmits data without encryption.",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T17:56:08.574938+00:00",
+      "F": {
+        "T": "weak_protocol",
+        "S": "low",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "service=http, port=8888",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_003",
+      "original_id": "e398480b-2f3e-4b4e-bb50-027f05515ba4",
+      "name": "Invalid/untrusted TLS certificate",
+      "description": "Certificate verification failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1082)",
+      "target": "127.0.0.1:443",
+      "timestamp": "2026-09-15T17:56:43.523068+00:00",
+      "F": {
+        "T": "missing_tls_cert",
+        "S": "high",
+        "A": "127.0.0.1",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1082)",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_004",
+      "original_id": "77308277-3f5b-46f5-bc8d-679d3aac3f95",
+      "name": "Missing HSTS header",
+      "description": "Response does not set Strict-Transport-Security.",
+      "target": "http://localhost:8888",
+      "timestamp": "2026-09-15T17:56:43.576791+00:00",
+      "F": {
+        "T": "missing_hsts",
+        "S": "medium",
+        "A": "http://localhost:8888",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Date', 'Server', 'X-Powered-By', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_005",
+      "original_id": "71d2c0f4-fd22-4690-8bdc-9d61cadb2ff5",
+      "name": "No rate limiting detected on endpoint",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "target": "http://localhost:8888",
+      "timestamp": "2026-09-15T18:54:01.759162+00:00",
+      "F": {
+        "T": "missing_rate_limit",
+        "S": "medium",
+        "A": "http://localhost:8888",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "method=GET, requests_sent=20, throttled=False",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_006",
+      "original_id": "7b7fbd98-0daa-4730-86e2-5e0d90dec50e",
+      "name": "Missing security header: Content-Security-Policy",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "target": "http://localhost:8888",
+      "timestamp": "2026-09-15T17:54:46.762849+00:00",
+      "F": {
+        "T": "missing_csp",
+        "S": "medium",
+        "A": "http://localhost:8888",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Date', 'Server', 'X-Powered-By', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_007",
+      "original_id": "b17c10c7-12d5-41c1-8601-a5416d2c851e",
+      "name": "Missing security header: X-Frame-Options",
+      "description": "Response does not set the X-Frame-Options header.",
+      "target": "http://localhost:8888",
+      "timestamp": "2026-09-15T17:54:46.763430+00:00",
+      "F": {
+        "T": "missing_xfo",
+        "S": "medium",
+        "A": "http://localhost:8888",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Date', 'Server', 'X-Powered-By', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_008",
+      "original_id": "4eae2db2-44fb-4768-b0f7-93a1eeceef45",
+      "name": "Missing security header: X-Content-Type-Options",
+      "description": "Response does not set the X-Content-Type-Options header.",
+      "target": "http://localhost:8888",
+      "timestamp": "2026-09-15T17:54:46.763442+00:00",
+      "F": {
+        "T": "missing_xcto",
+        "S": "low",
+        "A": "http://localhost:8888",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Date', 'Server', 'X-Powered-By', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+        "E": null
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network')."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://localhost:8888' and the same security layer ('client')."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://localhost:8888' and the same security layer ('client')."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://localhost:8888' and the same security layer ('client')."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_001",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_004",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_002",
+      "target": "VULN_003",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_008",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_007",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_005",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:8888' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_001",
+      "target": "VULN_002",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_004",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_007",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_008",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_007",
+      "target": "VULN_008",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."
+    }
+  ]
+}

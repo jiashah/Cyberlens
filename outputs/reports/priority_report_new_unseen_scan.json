@@ -1,0 +1,260 @@
+{
+  "dataset": "new_unseen_scan",
+  "vulnerability_count": 6,
+  "priority_summary": {
+    "P1 - Fix immediately": 2,
+    "P2 - Fix soon": 0,
+    "P3 - Schedule": 4,
+    "P4 - Low / monitor": 0
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [
+    "Unrecognized finding type (node VULN_001) 'ssrf' -- not in vocabulary, encoded as all-zero. Update feature_engineering.py's vocab list if this is a legitimate new value."
+  ],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_002",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "layer": "network",
+      "scanner_severity": "critical",
+      "asset": "127.0.0.1",
+      "scanner_cvss": 9.8,
+      "predicted_score": 9.55,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Server-side request forgery",
+          "vuln_type": "ssrf",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.64
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Replace the cleartext protocol with its encrypted equivalent.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Server-side request forgery",
+      "type": "ssrf",
+      "layer": "application",
+      "scanner_severity": "high",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 7.64,
+      "priority": "P1 - Fix immediately",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.55
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Review and remediate per vendor guidance.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.37,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.2
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 9.55
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Server-side request forgery",
+          "vuln_type": "ssrf",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 7.64
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://shop.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.26,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.2
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.17
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.17
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://shop.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.2,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.26
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.17
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_006",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://shop.internal:8081/WebGoat",
+      "scanner_cvss": null,
+      "predicted_score": 5.17,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.26
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://shop.internal:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.2
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.26
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 6
+    }
+  ]
+}

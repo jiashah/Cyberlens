@@ -1,0 +1,206 @@
+{
+  "graph_metadata": {
+    "source_file": "outputs/normalized_owasp_juice_shop_scan.json",
+    "generated_at": "2026-10-21T06:46:48.666304+00:00",
+    "schema": "G = (V, E, X, W) -- V: vulnerability nodes only; E: chaining | co_context | shared_root_cause; X: per-node F_i attributes (T,S,A,L,C,W,E); W: per-edge 'weight' field",
+    "co_context_top_k": 2,
+    "networkx_representation": "MultiDiGraph (Multi: a pair may carry edges of several different types; Directed: chaining is directional, co_context/shared_root_cause are symmetric but stored once and treated as undirected via to_undirected() for connectivity checks)",
+    "pyg_directionality_plan": "chaining -> single (source,target) edge_index entry; co_context / shared_root_cause -> expanded to both (source,target) and (target,source) entries at PyG conversion time (Phase 4, not yet implemented)",
+    "node_count": 6,
+    "edge_count": 9,
+    "edge_count_by_type": {
+      "co_context": 7,
+      "shared_root_cause": 2
+    },
+    "isolated_node_count": 0,
+    "isolated_node_ids": [],
+    "networkx_check": null
+  },
+  "nodes": [
+    {
+      "node_id": "VULN_001",
+      "original_id": "eeba106f-9976-49ef-bb51-c0aefb2a954e",
+      "name": "Open port 3000/tcp (ppp)",
+      "description": "Port 3000/tcp is open running ppp",
+      "target": "127.0.0.1",
+      "timestamp": "2026-08-17T19:28:30.451292+00:00",
+      "F": {
+        "T": "open_port",
+        "S": "info",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "port=3000, proto=tcp, service=ppp, product=, version=",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_002",
+      "original_id": "a63459c2-3d88-40c4-b5d3-544eaea201e4",
+      "name": "No TLS/HTTPS listener",
+      "description": "Could not establish TLS connection: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1129)",
+      "target": "127.0.0.1:3000",
+      "timestamp": "2026-08-17T19:28:30.459015+00:00",
+      "F": {
+        "T": "missing_tls_cert",
+        "S": "medium",
+        "A": "127.0.0.1",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1129)",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_003",
+      "original_id": "fd32ea73-cfb1-458d-b64e-76204d2baf5d",
+      "name": "Missing HSTS header",
+      "description": "Response does not set Strict-Transport-Security.",
+      "target": "http://localhost:3000",
+      "timestamp": "2026-08-17T19:28:30.474220+00:00",
+      "F": {
+        "T": "missing_hsts",
+        "S": "medium",
+        "A": "http://localhost:3000",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Access-Control-Allow-Origin', 'X-Content-Type-Options', 'X-Frame-Options', 'Feature-Policy', 'X-Recruiting', 'Accept-Ranges', 'Cache-Control', 'Last-Modified', 'ETag', 'Content-Type', 'Vary', 'Content-Encoding', 'Date', 'Connection', 'Keep-Alive', 'Transfer-Encoding']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_004",
+      "original_id": "d417403d-399b-4823-8f40-abf71c1adb8b",
+      "name": "Missing security header: Content-Security-Policy",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "target": "http://localhost:3000",
+      "timestamp": "2026-08-17T19:28:30.477701+00:00",
+      "F": {
+        "T": "missing_csp",
+        "S": "medium",
+        "A": "http://localhost:3000",
+        "L": "client",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "headers_present=['Access-Control-Allow-Origin', 'X-Content-Type-Options', 'X-Frame-Options', 'Feature-Policy', 'X-Recruiting', 'Accept-Ranges', 'Cache-Control', 'Last-Modified', 'ETag', 'Content-Type', 'Vary', 'Content-Encoding', 'Date', 'Connection', 'Keep-Alive', 'Transfer-Encoding']",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_005",
+      "original_id": "3e6a8334-51d5-4356-b2fa-bbed728b526b",
+      "name": "No rate limiting detected on endpoint",
+      "description": "Sent 20 rapid requests with no throttling response (429/Retry-After).",
+      "target": "http://localhost:3000",
+      "timestamp": "2026-08-17T19:28:30.540247+00:00",
+      "F": {
+        "T": "missing_rate_limit",
+        "S": "medium",
+        "A": "http://localhost:3000",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "requests_sent=20, throttled=False",
+        "E": null
+      }
+    },
+    {
+      "node_id": "VULN_006",
+      "original_id": "691ec336-7483-4e83-9ef5-64f5d3a91d7f",
+      "name": "Potential IDOR via sequential 'id' parameter",
+      "description": "5 sequential IDs returned 200 OK with no apparent access control \u2014 flag for manual verification.",
+      "target": "http://localhost:3000",
+      "timestamp": "2026-08-17T19:28:30.590397+00:00",
+      "F": {
+        "T": "idor",
+        "S": "medium",
+        "A": "http://localhost:3000",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "tested_ids=[1, 2, 3, 4, 5], results=[(1, 200, 9393), (2, 200, 9393), (3, 200, 9393), (4, 200, 9393), (5, 200, 9393)]",
+        "E": null
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "co_context",
+      "weight": 0.55,
+      "reason": "Both findings share asset 'http://localhost:3000' and the same security layer ('api')."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_003",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_002",
+      "target": "VULN_001",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_006",
+      "target": "VULN_003",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_003",
+      "target": "VULN_004",
+      "type": "co_context",
+      "weight": 0.3,
+      "reason": "Both findings share asset 'http://localhost:3000' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."
+    },
+    {
+      "source": "VULN_002",
+      "target": "VULN_003",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."
+    },
+    {
+      "source": "VULN_005",
+      "target": "VULN_006",
+      "type": "shared_root_cause",
+      "weight": 0.6,
+      "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family."
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "dataset": "dvga_all_layers",
+  "vulnerability_count": 3,
+  "priority_summary": {
+    "P1 - Fix immediately": 0,
+    "P2 - Fix soon": 0,
+    "P3 - Schedule": 2,
+    "P4 - Low / monitor": 1
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_002",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.34,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 8092/tcp (tcpwrapped)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 1.38
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8092",
+      "scanner_cvss": null,
+      "predicted_score": 5.34,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 8092/tcp (tcpwrapped)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "info",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 1.38,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.34
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 3
+    }
+  ]
+}

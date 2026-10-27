@@ -1,0 +1,66 @@
+{
+  "scan_metadata": {
+    "target_url": "http://localhost:8093",
+    "target_host": "127.0.0.1",
+    "network_ports": "8093",
+    "ssl_port": 443,
+    "zap_target": null,
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "application",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-09-15T21:19:38.226894+00:00",
+    "errors": [
+      "client_scanner: HTTPSConnectionPool(host='localhost', port=443): Max retries exceeded with url: / (Caused by NewConnectionError(\"HTTPSConnection(host='localhost', port=443): Failed to establish a new connection: [Errno 61] Connection refused\"))"
+    ]
+  },
+  "findings": [
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Open port 8093/tcp (unknown)",
+      "type": "open_port",
+      "severity": "info",
+      "description": "Port 8093/tcp is open running unknown",
+      "evidence": "port=8093, proto=tcp, service=unknown, product=, version=",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "1038e146-7004-463c-a866-1914fe98ce7d",
+      "timestamp": "2026-09-15T21:18:55.947882+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "127.0.0.1:443",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "severity": "medium",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "evidence": "[Errno 61] Connection refused",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "94e2cd05-1d97-4ae8-8f93-9842a456cfc2",
+      "timestamp": "2026-09-15T21:18:55.959513+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:8093",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "severity": "medium",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "evidence": "method=GET, requests_sent=20, throttled=False",
+      "asset": "http://localhost:8093",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "948e90da-995f-45c9-a34c-4efb2ca6c229",
+      "timestamp": "2026-09-15T21:19:38.188455+00:00"
+    }
+  ]
+}

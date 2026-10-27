@@ -1,0 +1,140 @@
+{
+  "normalization_metadata": {
+    "source_file": "output/security_shepherd_all_layers.json",
+    "generated_at": "2026-10-21T06:46:49.539247+00:00",
+    "finding_count": 3,
+    "severity_distribution": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 0,
+      "info": 1
+    },
+    "unknown_severities_seen": [],
+    "findings_without_cve": 3,
+    "findings_with_asset_fallback_to_target": 0,
+    "cwe_available": false,
+    "exploitability_available": false
+  },
+  "scan_metadata": {
+    "target_url": "http://localhost:8093",
+    "target_host": "127.0.0.1",
+    "network_ports": "8093",
+    "ssl_port": 443,
+    "zap_target": null,
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "application",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-09-15T21:19:38.226894+00:00",
+    "errors": [
+      "client_scanner: HTTPSConnectionPool(host='localhost', port=443): Max retries exceeded with url: / (Caused by NewConnectionError(\"HTTPSConnection(host='localhost', port=443): Failed to establish a new connection: [Errno 61] Connection refused\"))"
+    ]
+  },
+  "normalized_findings": [
+    {
+      "id": "1038e146-7004-463c-a866-1914fe98ce7d",
+      "name": "Open port 8093/tcp (unknown)",
+      "description": "Port 8093/tcp is open running unknown",
+      "target": "127.0.0.1",
+      "timestamp": "2026-09-15T21:18:55.947882+00:00",
+      "F": {
+        "T": "open_port",
+        "S": "info",
+        "A": "127.0.0.1",
+        "L": "network",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "port=8093, proto=tcp, service=unknown, product=, version=",
+        "E": null
+      },
+      "raw": {
+        "layer": "network",
+        "target": "127.0.0.1",
+        "name": "Open port 8093/tcp (unknown)",
+        "type": "open_port",
+        "severity": "info",
+        "description": "Port 8093/tcp is open running unknown",
+        "evidence": "port=8093, proto=tcp, service=unknown, product=, version=",
+        "asset": "127.0.0.1",
+        "cvss_score": null,
+        "cve_id": null,
+        "id": "1038e146-7004-463c-a866-1914fe98ce7d",
+        "timestamp": "2026-09-15T21:18:55.947882+00:00"
+      }
+    },
+    {
+      "id": "94e2cd05-1d97-4ae8-8f93-9842a456cfc2",
+      "name": "No TLS/HTTPS listener",
+      "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+      "target": "127.0.0.1:443",
+      "timestamp": "2026-09-15T21:18:55.959513+00:00",
+      "F": {
+        "T": "missing_tls_cert",
+        "S": "medium",
+        "A": "127.0.0.1",
+        "L": "ssl",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "[Errno 61] Connection refused",
+        "E": null
+      },
+      "raw": {
+        "layer": "ssl",
+        "target": "127.0.0.1:443",
+        "name": "No TLS/HTTPS listener",
+        "type": "missing_tls_cert",
+        "severity": "medium",
+        "description": "Could not establish TLS connection: [Errno 61] Connection refused",
+        "evidence": "[Errno 61] Connection refused",
+        "asset": "127.0.0.1",
+        "cvss_score": null,
+        "cve_id": null,
+        "id": "94e2cd05-1d97-4ae8-8f93-9842a456cfc2",
+        "timestamp": "2026-09-15T21:18:55.959513+00:00"
+      }
+    },
+    {
+      "id": "948e90da-995f-45c9-a34c-4efb2ca6c229",
+      "name": "No rate limiting detected on endpoint",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "target": "http://localhost:8093",
+      "timestamp": "2026-09-15T21:19:38.188455+00:00",
+      "F": {
+        "T": "missing_rate_limit",
+        "S": "medium",
+        "A": "http://localhost:8093",
+        "L": "api",
+        "C": {
+          "cve_id": null,
+          "cwe_id": null
+        },
+        "W": "method=GET, requests_sent=20, throttled=False",
+        "E": null
+      },
+      "raw": {
+        "layer": "api",
+        "target": "http://localhost:8093",
+        "name": "No rate limiting detected on endpoint",
+        "type": "missing_rate_limit",
+        "severity": "medium",
+        "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+        "evidence": "method=GET, requests_sent=20, throttled=False",
+        "asset": "http://localhost:8093",
+        "cvss_score": null,
+        "cve_id": null,
+        "id": "948e90da-995f-45c9-a34c-4efb2ca6c229",
+        "timestamp": "2026-09-15T21:19:38.188455+00:00"
+      }
+    }
+  ]
+}

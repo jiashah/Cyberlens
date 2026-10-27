@@ -1,0 +1,821 @@
+{
+  "tune_apps": [
+    "bwapp_all_layers",
+    "dvga_all_layers",
+    "multillidae_scan",
+    "nodegoat_all_layers",
+    "owasp_juice_shop_scan",
+    "sample_scan_output",
+    "security_shepherd_all_layers",
+    "vulnerableapp_full_scan"
+  ],
+  "holdout_apps": [
+    "crapi_full_scan",
+    "dvwa_all_layers",
+    "webgoat_all_layers"
+  ],
+  "trials": [
+    {
+      "trial": 0,
+      "is_default": true,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 300,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.4005979001522064,
+        "rmse": 0.7826395034790039,
+        "spearman": 0.8305132093542981
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 1,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 16,
+        "num_layers": 3,
+        "heads": 2,
+        "dropout": 0.0,
+        "lr": 0.03,
+        "weight_decay": 0.0,
+        "epochs": 300,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2740488052368164,
+        "rmse": 0.5251908302307129,
+        "spearman": 0.9058185010775004
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 2,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0,
+        "epochs": 150,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.43846777081489563,
+        "rmse": 0.8501428365707397,
+        "spearman": 0.851664139197063
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 3,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 32,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.03,
+        "weight_decay": 0.001,
+        "epochs": 150,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2752659022808075,
+        "rmse": 0.4698340594768524,
+        "spearman": 0.8455982121478172
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 4,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0,
+        "epochs": 500,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.3862345218658447,
+        "rmse": 0.7592220902442932,
+        "spearman": 0.843084045015564
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 5,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 64,
+        "embedding_dim": 32,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.03,
+        "weight_decay": 0.001,
+        "epochs": 150,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.26219356060028076,
+        "rmse": 0.48353299498558044,
+        "spearman": 0.9078537792321814
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 6,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 32,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.25094538927078247,
+        "rmse": 0.49612927436828613,
+        "spearman": 0.9226594301221168
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 7,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 3,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0,
+        "epochs": 150,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2935507297515869,
+        "rmse": 0.5771182775497437,
+        "spearman": 0.8657514566206402
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 8,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 16,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.03,
+        "weight_decay": 0.0001,
+        "epochs": 300,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.290372371673584,
+        "rmse": 0.5680751204490662,
+        "spearman": 0.8705802538111583
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 9,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 16,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "epochs": 300,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.47628119587898254,
+        "rmse": 0.9455317854881287,
+        "spearman": 0.8502673796791445
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 10,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.4,
+        "lr": 0.01,
+        "weight_decay": 0.001,
+        "epochs": 300,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2521292269229889,
+        "rmse": 0.49563896656036377,
+        "spearman": 0.9375448958416474
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 11,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.4,
+        "lr": 0.03,
+        "weight_decay": 0.0,
+        "epochs": 150,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.27694377303123474,
+        "rmse": 0.481933057308197,
+        "spearman": 0.8478729347912844
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 12,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 64,
+        "embedding_dim": 32,
+        "num_layers": 3,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.03,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 1.8389036655426025,
+        "rmse": 1.9169976711273193,
+        "spearman": 0.729986431478969
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 13,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.003,
+        "weight_decay": 0.0,
+        "epochs": 300,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.4195525348186493,
+        "rmse": 0.8728204369544983,
+        "spearman": 0.8882592385665257
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 14,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.0,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.22001972794532776,
+        "rmse": 0.4898080825805664,
+        "spearman": 0.9576582328996729
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 15,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.03,
+        "weight_decay": 0.0001,
+        "epochs": 150,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.43224456906318665,
+        "rmse": 0.8035183548927307,
+        "spearman": 0.8448798786814592
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 16,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.0,
+        "lr": 0.01,
+        "weight_decay": 0.001,
+        "epochs": 150,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.2647951543331146,
+        "rmse": 0.5460038185119629,
+        "spearman": 0.8754888658312715
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 17,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.4,
+        "lr": 0.03,
+        "weight_decay": 0.0001,
+        "epochs": 150,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.28023451566696167,
+        "rmse": 0.5088508129119873,
+        "spearman": 0.8842684970867589
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 18,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 32,
+        "num_layers": 3,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 150,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.24971699714660645,
+        "rmse": 0.5001687407493591,
+        "spearman": 0.9166334104876687
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 19,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.003,
+        "weight_decay": 0.0,
+        "epochs": 300,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.23540396988391876,
+        "rmse": 0.45375877618789673,
+        "spearman": 0.907055630936228
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 20,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 3,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.44544556736946106,
+        "rmse": 0.8621243238449097,
+        "spearman": 0.824128022986671
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 21,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 16,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.2641248106956482,
+        "rmse": 0.5289998054504395,
+        "spearman": 0.9245350786176072
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 22,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 16,
+        "embedding_dim": 8,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 150,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.5169159173965454,
+        "rmse": 1.0546698570251465,
+        "spearman": 0.8161864474419348
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 23,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 16,
+        "num_layers": 3,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.03,
+        "weight_decay": 0.0,
+        "epochs": 500,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.3561362624168396,
+        "rmse": 0.7088580131530762,
+        "spearman": 0.8754090510016762
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 24,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 16,
+        "num_layers": 1,
+        "heads": 2,
+        "dropout": 0.4,
+        "lr": 0.01,
+        "weight_decay": 0.001,
+        "epochs": 150,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2331112176179886,
+        "rmse": 0.4629475772380829,
+        "spearman": 0.920344800063852
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 25,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 64,
+        "embedding_dim": 16,
+        "num_layers": 1,
+        "heads": 4,
+        "dropout": 0.0,
+        "lr": 0.03,
+        "weight_decay": 0.001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.27480143308639526,
+        "rmse": 0.553695023059845,
+        "spearman": 0.901987389256924
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 26,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 64,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 4,
+        "dropout": 0.4,
+        "lr": 0.003,
+        "weight_decay": 0.0,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.27711981534957886,
+        "rmse": 0.5618859529495239,
+        "spearman": 0.8838694229387821
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 27,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 64,
+        "embedding_dim": 8,
+        "num_layers": 1,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0,
+        "epochs": 500,
+        "residual_max_delta": 4.0
+      },
+      "cv": {
+        "mae": 0.2920733392238617,
+        "rmse": 0.6136481761932373,
+        "spearman": 0.9005906297390056
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 28,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 32,
+        "embedding_dim": 32,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.0,
+        "lr": 0.003,
+        "weight_decay": 0.0,
+        "epochs": 150,
+        "residual_max_delta": 2.0
+      },
+      "cv": {
+        "mae": 0.2673215866088867,
+        "rmse": 0.5417067408561707,
+        "spearman": 0.9107271130976137
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    },
+    {
+      "trial": 29,
+      "is_default": false,
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 8,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.2,
+        "lr": 0.03,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 0.0
+      },
+      "cv": {
+        "mae": 0.34904158115386963,
+        "rmse": 0.701891303062439,
+        "spearman": 0.8706999760555513
+      },
+      "cv_severity_baseline_mae": 0.45302167828536255
+    }
+  ],
+  "best": {
+    "trial": 14,
+    "is_default": false,
+    "hparams": {
+      "encoder": "gcn",
+      "hidden_dim": 32,
+      "embedding_dim": 16,
+      "num_layers": 2,
+      "heads": 2,
+      "dropout": 0.0,
+      "lr": 0.01,
+      "weight_decay": 0.0001,
+      "epochs": 500,
+      "residual_max_delta": 2.0
+    },
+    "cv": {
+      "mae": 0.22001972794532776,
+      "rmse": 0.4898080825805664,
+      "spearman": 0.9576582328996729
+    },
+    "cv_severity_baseline_mae": 0.45302167828536255
+  },
+  "default_cv": {
+    "mae": 0.4005979001522064,
+    "rmse": 0.7826395034790039,
+    "spearman": 0.8305132093542981
+  },
+  "holdout": {
+    "best_tuned": {
+      "hparams": {
+        "encoder": "gcn",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.0,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "model": {
+        "mae": 0.3764963746070862,
+        "rmse": 0.5937135219573975,
+        "spearman": 0.903448275862069
+      },
+      "per_app": [
+        {
+          "app": "crapi_full_scan",
+          "n": 4,
+          "mae": 0.3287886381149292
+        },
+        {
+          "app": "dvwa_all_layers",
+          "n": 13,
+          "mae": 0.2991150915622711
+        },
+        {
+          "app": "webgoat_all_layers",
+          "n": 13,
+          "mae": 0.4685569405555725
+        }
+      ]
+    },
+    "severity_baseline": {
+      "mae": 0.27118445883740433,
+      "rmse": 0.5091854431386359,
+      "spearman": 0.7139043381535038
+    },
+    "current_defaults": {
+      "hparams": {
+        "encoder": "gat",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 2,
+        "heads": 4,
+        "dropout": 0.2,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 300,
+        "residual_max_delta": 0.0
+      },
+      "model": {
+        "mae": 0.8173969984054565,
+        "rmse": 1.5321849584579468,
+        "spearman": 0.643159065628476
+      },
+      "per_app": [
+        {
+          "app": "crapi_full_scan",
+          "n": 4,
+          "mae": 0.06602752208709717
+        },
+        {
+          "app": "dvwa_all_layers",
+          "n": 13,
+          "mae": 0.7012771964073181
+        },
+        {
+          "app": "webgoat_all_layers",
+          "n": 13,
+          "mae": 1.1647073030471802
+        }
+      ]
+    },
+    "features_only_ablation": {
+      "hparams": {
+        "encoder": "none",
+        "hidden_dim": 32,
+        "embedding_dim": 16,
+        "num_layers": 2,
+        "heads": 2,
+        "dropout": 0.0,
+        "lr": 0.01,
+        "weight_decay": 0.0001,
+        "epochs": 500,
+        "residual_max_delta": 2.0
+      },
+      "model": {
+        "mae": 0.3897460699081421,
+        "rmse": 0.6230324506759644,
+        "spearman": 0.8780867630700778
+      },
+      "per_app": [
+        {
+          "app": "crapi_full_scan",
+          "n": 4,
+          "mae": 0.2596064805984497
+        },
+        {
+          "app": "dvwa_all_layers",
+          "n": 13,
+          "mae": 0.36889636516571045
+        },
+        {
+          "app": "webgoat_all_layers",
+          "n": 13,
+          "mae": 0.45063871145248413
+        }
+      ]
+    }
+  }
+}

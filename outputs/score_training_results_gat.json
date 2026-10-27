@@ -1,0 +1,208 @@
+{
+  "hparams": {
+    "encoder": "gat",
+    "hidden_dim": 32,
+    "embedding_dim": 16,
+    "num_layers": 3,
+    "heads": 2,
+    "dropout": 0.2,
+    "lr": 0.003,
+    "weight_decay": 0.0001,
+    "epochs": 200,
+    "residual_max_delta": 3.0,
+    "standardize": false,
+    "loss": "smooth_l1",
+    "delta_l2": 0.0
+  },
+  "datasets": [
+    "bwapp_all_layers",
+    "crapi_full_scan",
+    "dvga_all_layers",
+    "dvwa_all_layers",
+    "multillidae_scan",
+    "nodegoat_all_layers",
+    "owasp_juice_shop_scan",
+    "sample_scan_output",
+    "security_shepherd_all_layers",
+    "vulnerableapp_full_scan",
+    "webgoat_all_layers"
+  ],
+  "score_config_fingerprint": "d315ddb634b3",
+  "cv_folds": [
+    {
+      "held_out": "bwapp_all_layers",
+      "n": 9,
+      "model": {
+        "mae": 0.058233924210071564,
+        "rmse": 0.11856777966022491,
+        "spearman": 0.9
+      },
+      "severity_baseline": {
+        "mae": 0.21498192513010073,
+        "rmse": 0.24453805332423498,
+        "spearman": 0.5833333333333334
+      }
+    },
+    {
+      "held_out": "crapi_full_scan",
+      "n": 4,
+      "model": {
+        "mae": 0.22661828994750977,
+        "rmse": 0.2697322368621826,
+        "spearman": 0.7999999999999999
+      },
+      "severity_baseline": {
+        "mae": 0.26999998092651367,
+        "rmse": 0.3429007359521489,
+        "spearman": 0.7999999999999999
+      }
+    },
+    {
+      "held_out": "dvga_all_layers",
+      "n": 3,
+      "model": {
+        "mae": 0.021146336570382118,
+        "rmse": 0.025660192593932152,
+        "spearman": 0.5
+      },
+      "severity_baseline": {
+        "mae": 0.367866387632158,
+        "rmse": 0.5042859512512267,
+        "spearman": 1.0
+      }
+    },
+    {
+      "held_out": "dvwa_all_layers",
+      "n": 13,
+      "model": {
+        "mae": 0.09313157945871353,
+        "rmse": 0.11278709769248962,
+        "spearman": 0.901098901098901
+      },
+      "severity_baseline": {
+        "mae": 0.17126136797860422,
+        "rmse": 0.19323547179648937,
+        "spearman": 0.7087912087912087
+      }
+    },
+    {
+      "held_out": "multillidae_scan",
+      "n": 8,
+      "model": {
+        "mae": 0.08490234613418579,
+        "rmse": 0.15687169134616852,
+        "spearman": 1.0
+      },
+      "severity_baseline": {
+        "mae": 0.35176129031520603,
+        "rmse": 0.4850855541666542,
+        "spearman": 0.8095238095238096
+      }
+    },
+    {
+      "held_out": "nodegoat_all_layers",
+      "n": 10,
+      "model": {
+        "mae": 0.10194207727909088,
+        "rmse": 0.18029260635375977,
+        "spearman": 0.9636363636363635
+      },
+      "severity_baseline": {
+        "mae": 0.17285292933857632,
+        "rmse": 0.21274236295199037,
+        "spearman": 0.8666666666666665
+      }
+    },
+    {
+      "held_out": "owasp_juice_shop_scan",
+      "n": 6,
+      "model": {
+        "mae": 0.10277649015188217,
+        "rmse": 0.13703618943691254,
+        "spearman": 0.942857142857143
+      },
+      "severity_baseline": {
+        "mae": 0.35261918316807667,
+        "rmse": 0.45850840565416046,
+        "spearman": 0.7714285714285715
+      }
+    },
+    {
+      "held_out": "sample_scan_output",
+      "n": 20,
+      "model": {
+        "mae": 0.3858422636985779,
+        "rmse": 0.5281636118888855,
+        "spearman": 0.9172932330827066
+      },
+      "severity_baseline": {
+        "mae": 0.8234814349087802,
+        "rmse": 1.4368754786563078,
+        "spearman": 0.5593984962406015
+      }
+    },
+    {
+      "held_out": "security_shepherd_all_layers",
+      "n": 3,
+      "model": {
+        "mae": 0.022596240043640137,
+        "rmse": 0.0335797518491745,
+        "spearman": 0.5
+      },
+      "severity_baseline": {
+        "mae": 0.367866387632158,
+        "rmse": 0.5042859512512267,
+        "spearman": 1.0
+      }
+    },
+    {
+      "held_out": "vulnerableapp_full_scan",
+      "n": 8,
+      "model": {
+        "mae": 0.024396181106567383,
+        "rmse": 0.029704896733164787,
+        "spearman": 1.0
+      },
+      "severity_baseline": {
+        "mae": 0.20386658094779803,
+        "rmse": 0.23614500426559248,
+        "spearman": 0.6190476190476191
+      }
+    },
+    {
+      "held_out": "webgoat_all_layers",
+      "n": 13,
+      "model": {
+        "mae": 0.2345438003540039,
+        "rmse": 0.3551531136035919,
+        "spearman": 0.9505494505494506
+      },
+      "severity_baseline": {
+        "mae": 0.3639046007509327,
+        "rmse": 0.7215503035974111,
+        "spearman": 0.7802197802197801
+      }
+    }
+  ],
+  "cv_pooled": {
+    "model": {
+      "mae": 0.16545258462429047,
+      "rmse": 0.2951290011405945,
+      "spearman": 0.9392620450241952
+    },
+    "severity_baseline": {
+      "mae": 0.3808050436064716,
+      "rmse": 0.7538409340916379,
+      "spearman": 0.5870765832106037
+    }
+  },
+  "train_fit": {
+    "mae": 0.06740254163742065,
+    "rmse": 0.10142502933740616,
+    "spearman": 0.9858641910372395
+  },
+  "loss_first_last": [
+    0.4572422504425049,
+    0.012790601700544357
+  ]
+}

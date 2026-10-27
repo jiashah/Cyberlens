@@ -1,0 +1,150 @@
+{
+  "scan_metadata": {
+    "target_url": "http://localhost:8090",
+    "target_host": "127.0.0.1",
+    "network_ports": "8090",
+    "ssl_port": 443,
+    "zap_target": null,
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "application",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-09-15T20:11:53.347759+00:00",
+    "errors": [
+      "app_scanner: HTTPConnectionPool(host='127.0.0.1', port=8080): Max retries exceeded with url: http://zap/JSON/spider/action/scan/?url=http%3A%2F%2Fhost.docker.internal%3A8090 (Caused by ProxyError('Unable to connect to proxy', NewConnectionError(\"HTTPConnection(host='127.0.0.1', port=8080): Failed to establish a new connection: [Errno 61] Connection refused\")))"
+    ]
+  },
+  "findings": [
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Open port 8090/tcp (http)",
+      "type": "open_port",
+      "severity": "low",
+      "description": "Port 8090/tcp is open running http Apache httpd 2.4.10",
+      "evidence": "port=8090, proto=tcp, service=http, product=Apache httpd, version=2.4.10",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "85590612-312e-47bf-ab50-f06056fb9701",
+      "timestamp": "2026-09-15T20:11:32.980421+00:00"
+    },
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "severity": "low",
+      "description": "http transmits data without encryption.",
+      "evidence": "service=http, port=8090",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "ec51a260-023a-4358-817a-eac968fbb020",
+      "timestamp": "2026-09-15T20:11:32.980977+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "127.0.0.1:443",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "severity": "medium",
+      "description": "Could not establish TLS connection: _ssl.c:1064: The handshake operation timed out",
+      "evidence": "_ssl.c:1064: The handshake operation timed out",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "0fe2fe4d-e50b-4857-b815-5a0a2c28df39",
+      "timestamp": "2026-09-15T20:11:42.997262+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "http://localhost:8090",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "severity": "medium",
+      "description": "Response does not set Strict-Transport-Security.",
+      "evidence": "headers_present=['Date', 'Server', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "bcf486b1-fef8-47af-bb27-02d6fe171e8d",
+      "timestamp": "2026-09-15T20:11:53.079905+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8090",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "severity": "medium",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "evidence": "headers_present=['Date', 'Server', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "834ce418-407d-4475-b20d-f667858951cc",
+      "timestamp": "2026-09-15T20:11:53.095675+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8090",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "severity": "medium",
+      "description": "Response does not set the X-Frame-Options header.",
+      "evidence": "headers_present=['Date', 'Server', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "259469b2-3715-4bc2-bf6b-87ec142c5540",
+      "timestamp": "2026-09-15T20:11:53.095718+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:8090",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "severity": "low",
+      "description": "Response does not set the X-Content-Type-Options header.",
+      "evidence": "headers_present=['Date', 'Server', 'Expires', 'Cache-Control', 'Pragma', 'Vary', 'Content-Encoding', 'Content-Length', 'Keep-Alive', 'Connection', 'Content-Type']",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "4448fed4-a2e9-4406-a139-8346b3320cd1",
+      "timestamp": "2026-09-15T20:11:53.095738+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:8090",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "severity": "medium",
+      "description": "Sent 20 rapid GET requests with no throttling response (429/Retry-After).",
+      "evidence": "method=GET, requests_sent=20, throttled=False",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "92df97fc-03b7-4519-939b-e419f03df0a6",
+      "timestamp": "2026-09-15T20:11:53.311576+00:00"
+    },
+    {
+      "layer": "fingerprint",
+      "target": "http://localhost:8090",
+      "name": "Outdated Apache version detected: 2.4.10",
+      "type": "outdated_fingerprint",
+      "severity": "medium",
+      "description": "Apache 2.4.10 is below recommended minimum 2.4.50.",
+      "evidence": "banner=Apache/2.4.10 (Debian)",
+      "asset": "http://localhost:8090",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "3a9f1f97-3bab-4dda-9699-8f1886592e2a",
+      "timestamp": "2026-09-15T20:11:53.347501+00:00"
+    }
+  ]
+}

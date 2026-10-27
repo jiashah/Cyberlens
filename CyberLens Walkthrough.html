@@ -1,0 +1,318 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CyberLens Walkthrough</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one centred column per screen (URL, loading); results split into graph (left, sticky) and report (right). */
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --fg: #15191f; --muted: #667085; --line: #dfe3e8;
+  --accent: #1d4ed8; --accent-fg: #ffffff;
+  --p1: #c42b2b; --p2: #d4650a; --p3: #a67c00; --p4: #6b7785;
+  --e-chain: #e3342f; --e-ctx: #3490dc; --e-root: #9561e2;
+  --graph-label: #15191f;
+  --display: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216; --surface: #171b21; --fg: #e8ebef; --muted: #98a2b3; --line: #2a313a;
+    --accent: #6d9bff; --accent-fg: #0b1020;
+    --p1: #ff6b6b; --p2: #ff9a4d; --p3: #e0b84a; --p4: #8f9aa8;
+    --graph-label: #e8ebef; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1216; --surface: #171b21; --fg: #e8ebef; --muted: #98a2b3; --line: #2a313a;
+  --accent: #6d9bff; --accent-fg: #0b1020;
+  --p1: #ff6b6b; --p2: #ff9a4d; --p3: #e0b84a; --p4: #8f9aa8;
+  --graph-label: #e8ebef; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 15px; line-height: 1.5;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px;
+}
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--mono); }
+
+/* ---------- screen 1: URL ---------- */
+.center { min-height: 70vh; display: grid; place-content: center; justify-items: center; gap: 28px; text-align: center; }
+.brand { font-weight: 700; letter-spacing: -0.02em; font-size: 15px; color: var(--muted); }
+.brand b { color: var(--fg); }
+h1 { margin: 0; font-size: clamp(28px, 5vw, 44px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance; }
+.sub { margin: 0; color: var(--muted); max-width: 46ch; }
+.url-form { display: flex; gap: 8px; width: min(560px, 100%); flex-wrap: wrap; }
+.url-form input {
+  flex: 1 1 260px; min-width: 0; padding: 13px 14px; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; font-family: var(--mono); font-size: 14px;
+}
+.btn {
+  padding: 13px 20px; background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 8px;
+  font-weight: 600; cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); padding: 8px 14px; font-weight: 500; }
+.btn:hover { filter: brightness(1.08); }
+.err { margin: 0; color: var(--p1); font-size: 14px; max-width: 52ch; }
+.hint { margin: 0; color: var(--muted); font-size: 12px; font-family: var(--mono); }
+
+/* ---------- screen 2: loading ---------- */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; width: min(460px, 100%); text-align: left; }
+.steps li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: center; color: var(--muted); transition: color .3s; }
+.steps .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-size: 11px; color: transparent; }
+.steps li.on { color: var(--fg); }
+.steps li.on .dot { border-color: var(--accent); border-top-color: transparent; animation: spin .8s linear infinite; }
+.steps li.done { color: var(--fg); }
+.steps li.done .dot { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); animation: none; }
+.steps small { display: block; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.bar { width: min(460px, 100%); height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s ease; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- screen 3: results ---------- */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.target { min-width: 0; }
+.target .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+.target .val { font-family: var(--mono); font-size: 14px; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.chip { display: flex; align-items: baseline; gap: 8px; padding: 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.chip b { font-size: 20px; font-variant-numeric: tabular-nums; }
+.chip span { color: var(--muted); font-size: 13px; }
+.chip.p1 b { color: var(--p1); } .chip.p2 b { color: var(--p2); } .chip.p3 b { color: var(--p3); } .chip.p4 b { color: var(--p4); }
+.split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.graphwrap { position: sticky; top: 16px; }
+#net { height: min(68vh, 640px); min-height: 360px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 18px; height: 3px; border-radius: 2px; } .sd { width: 10px; height: 10px; border-radius: 50%; }
+.ptitle { padding: 12px 14px; border-bottom: 1px solid var(--line); font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+.ptitle small { color: var(--muted); font-weight: 400; }
+.row { display: grid; grid-template-columns: 28px minmax(0, 1fr) 96px 44px; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); cursor: pointer; width: 100%; background: none; border-inline: 0; border-top: 0; text-align: left; }
+.row:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.row[aria-expanded="true"] { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.rk { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.nm { min-width: 0; }
+.nm b { display: block; font-weight: 500; overflow-wrap: anywhere; line-height: 1.3; }
+.nm small { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+.tier { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; text-align: center; border: 1px solid currentColor; white-space: nowrap; }
+.t-P1 { color: var(--p1); } .t-P2 { color: var(--p2); } .t-P3 { color: var(--p3); } .t-P4 { color: var(--p4); }
+.sc { font-family: var(--mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+.scorebar { grid-column: 2 / -1; height: 3px; background: var(--line); border-radius: 2px; }
+.scorebar i { display: block; height: 100%; border-radius: 2px; background: currentColor; }
+.detail { padding: 14px; border-bottom: 1px solid var(--line); display: grid; gap: 12px; background: color-mix(in srgb, var(--accent) 4%, transparent); }
+.kv { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 4px 12px; font-size: 13px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; overflow-wrap: anywhere; }
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.links li { font-size: 13px; padding-left: 10px; border-left: 3px solid var(--line); }
+.links li.chaining { border-color: var(--e-chain); } .links li.co_context { border-color: var(--e-ctx); } .links li.shared_root_cause { border-color: var(--e-root); }
+.links .why { display: block; color: var(--muted); font-size: 12px; }
+.links button { all: unset; cursor: pointer; color: var(--accent); font-family: var(--mono); font-size: 12px; }
+.links button:focus-visible { outline: 2px solid var(--accent); }
+.more { color: var(--muted); font-size: 12px; }
+.note { margin: 20px 0 0; color: var(--muted); font-size: 12px; }
+@media (max-width: 860px) {
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .graphwrap { position: static; }
+  #net { height: 380px; }
+}
+@media (prefers-reduced-motion: reduce) { .steps li.on .dot { animation: none; } .bar i { transition: none; } }
+</style>
+
+<main>
+  <section id="s1" class="center">
+    <div class="brand"><b>CyberLens</b> / contextual risk assessment</div>
+    <h1>Which website should we assess?</h1>
+    <p class="sub">Enter a link. CyberLens scans it across seven layers, links the findings in a graph and ranks them by risk.</p>
+    <form id="form" class="url-form">
+      <input id="url" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://owasp.org/projects/webgoat" aria-label="Website link">
+      <button class="btn" type="submit">Assess</button>
+    </form>
+    <p id="err" class="err" role="alert" hidden></p>
+    <p class="hint">Demo mode: only the OWASP WebGoat link is supported.</p>
+  </section>
+
+  <section id="s2" class="center" hidden>
+    <div class="brand"><b>CyberLens</b> / working on <span id="tgt" class="mono"></span></div>
+    <ol class="steps" id="steps"></ol>
+    <div class="bar"><i id="barfill"></i></div>
+  </section>
+
+  <section id="s3" hidden>
+    <div class="top">
+      <div class="target"><div class="lbl">Assessed</div><div class="val" id="tgt2"></div></div>
+      <button class="btn ghost" id="again" type="button">New assessment</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="split">
+      <div class="panel graphwrap">
+        <div class="ptitle">Vulnerability graph <small>click a node</small></div>
+        <div id="net"></div>
+        <div class="legend">
+          <span><i class="sw" style="background:var(--e-chain)"></i>chaining</span>
+          <span><i class="sw" style="background:var(--e-ctx)"></i>shared context</span>
+          <span><i class="sw" style="background:var(--e-root)"></i>shared root cause</span>
+          <span><i class="sd" style="background:#E3342F"></i>high</span>
+          <span><i class="sd" style="background:#F6993F"></i>medium</span>
+          <span><i class="sd" style="background:#FFED4A"></i>low</span>
+          <span><i class="sd" style="background:#A0AEC0"></i>info</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">Priority report <small id="count"></small></div>
+        <div id="rows"></div>
+      </div>
+    </div>
+    <p class="note">Replay of the stored <span class="mono">webgoat_all_layers</span> result. Scores are 0 to 10, higher means fix first.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<script>
+const DATA = {"nodes": [{"id": "VULN_001", "type": "open_port", "color": "#FFED4A", "size": 20}, {"id": "VULN_002", "type": "weak_protocol", "color": "#FFED4A", "size": 20}, {"id": "VULN_003", "type": "missing_tls_cert", "color": "#F6993F", "size": 20}, {"id": "VULN_004", "type": "missing_hsts", "color": "#F6993F", "size": 24}, {"id": "VULN_005", "type": "missing_csp", "color": "#F6993F", "size": 30}, {"id": "VULN_006", "type": "missing_xfo", "color": "#F6993F", "size": 30}, {"id": "VULN_007", "type": "missing_xcto", "color": "#FFED4A", "size": 30}, {"id": "VULN_008", "type": "missing_xfo", "color": "#F6993F", "size": 32}, {"id": "VULN_009", "type": "missing_csp", "color": "#F6993F", "size": 32}, {"id": "VULN_010", "type": "missing_xcto", "color": "#FFED4A", "size": 30}, {"id": "VULN_011", "type": "xss", "color": "#A0AEC0", "size": 28}, {"id": "VULN_012", "type": "sqli", "color": "#E3342F", "size": 24}, {"id": "VULN_013", "type": "missing_rate_limit", "color": "#F6993F", "size": 22}], "edges": [{"from": "VULN_011", "to": "VULN_008", "type": "chaining", "weight": 0.45, "directed": true}, {"from": "VULN_011", "to": "VULN_009", "type": "chaining", "weight": 0.9, "directed": true}, {"from": "VULN_001", "to": "VULN_002", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_004", "to": "VULN_005", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_004", "to": "VULN_006", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_004", "to": "VULN_007", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_004", "to": "VULN_013", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_005", "to": "VULN_006", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_005", "to": "VULN_007", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_005", "to": "VULN_013", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_006", "to": "VULN_007", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_006", "to": "VULN_013", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_007", "to": "VULN_013", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_008", "to": "VULN_009", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_008", "to": "VULN_010", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_008", "to": "VULN_011", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_008", "to": "VULN_012", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_009", "to": "VULN_010", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_009", "to": "VULN_011", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_009", "to": "VULN_012", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_010", "to": "VULN_011", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_010", "to": "VULN_012", "type": "co_context", "weight": 0.55, "directed": false}, {"from": "VULN_011", "to": "VULN_012", "type": "co_context", "weight": 0.85, "directed": false}, {"from": "VULN_003", "to": "VULN_002", "type": "co_context", "weight": 0.3, "directed": false}, {"from": "VULN_003", "to": "VULN_001", "type": "co_context", "weight": 0.3, "directed": false}, {"from": "VULN_001", "to": "VULN_002", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_003", "to": "VULN_004", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_005", "to": "VULN_006", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_005", "to": "VULN_007", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_005", "to": "VULN_008", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_005", "to": "VULN_010", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_006", "to": "VULN_007", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_006", "to": "VULN_009", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_006", "to": "VULN_010", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_007", "to": "VULN_008", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_007", "to": "VULN_009", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_008", "to": "VULN_009", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_008", "to": "VULN_010", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_009", "to": "VULN_010", "type": "shared_root_cause", "weight": 0.6, "directed": false}, {"from": "VULN_011", "to": "VULN_012", "type": "shared_root_cause", "weight": 0.6, "directed": false}], "report": [{"rank": 1, "id": "VULN_012", "name": "SQL Injection", "score": 8.21, "tier": "P1", "tierLabel": "Fix immediately", "type": "sqli", "layer": "application", "severity": "high", "asset": "http://host.docker.internal:8081/WebGoat", "fix": "Use parameterised queries / an ORM; validate and escape all input.", "links": [{"verb": "shares context with", "id": "VULN_011", "name": "User Controllable HTML Element Attribute (Potential XSS)", "score": 3.63, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/register.mvc'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_011", "name": "User Controllable HTML Element Attribute (Potential XSS)", "score": 3.63, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}, {"verb": "shares context with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}, {"verb": "shares context with", "id": "VULN_010", "name": "X-Content-Type-Options Header Missing", "score": 3.52, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}], "linkTotal": 5}, {"rank": 2, "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "tier": "P2", "tierLabel": "Fix soon", "type": "missing_csp", "layer": "application", "severity": "medium", "asset": "http://host.docker.internal:8081/WebGoat", "fix": "Add a restrictive Content-Security-Policy header.", "links": [{"verb": "can be chained with", "id": "VULN_011", "name": "User Controllable HTML Element Attribute (Potential XSS)", "score": 3.63, "type": "chaining", "weight": 0.9, "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding."}, {"verb": "shares context with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_010", "name": "X-Content-Type-Options Header Missing", "score": 3.52, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}], "linkTotal": 9}, {"rank": 3, "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "tier": "P2", "tierLabel": "Fix soon", "type": "missing_csp", "layer": "client", "severity": "medium", "asset": "http://localhost:8081/WebGoat", "fix": "Add a restrictive Content-Security-Policy header.", "links": [{"verb": "shares context with", "id": "VULN_013", "name": "No rate limiting detected on endpoint", "score": 5.38, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}], "linkTotal": 8}, {"rank": 4, "id": "VULN_003", "name": "No TLS/HTTPS listener", "score": 5.46, "tier": "P3", "tierLabel": "Schedule", "type": "missing_tls_cert", "layer": "ssl", "severity": "medium", "asset": "127.0.0.1", "fix": "Install a valid, trusted TLS certificate.", "links": [{"verb": "shares a root cause with", "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_002", "name": "Weak/unencrypted protocol in use: http", "score": 3.55, "type": "co_context", "weight": 0.3, "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."}, {"verb": "shares context with", "id": "VULN_001", "name": "Open port 8081/tcp (http)", "score": 2.97, "type": "co_context", "weight": 0.3, "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."}], "linkTotal": 3}, {"rank": 5, "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "tier": "P3", "tierLabel": "Schedule", "type": "missing_xfo", "layer": "application", "severity": "medium", "asset": "http://host.docker.internal:8081/WebGoat", "fix": "Send X-Frame-Options: DENY (or CSP frame-ancestors).", "links": [{"verb": "shares context with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_010", "name": "X-Content-Type-Options Header Missing", "score": 3.52, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}], "linkTotal": 9}, {"rank": 6, "id": "VULN_013", "name": "No rate limiting detected on endpoint", "score": 5.38, "tier": "P3", "tierLabel": "Schedule", "type": "missing_rate_limit", "layer": "api", "severity": "medium", "asset": "http://localhost:8081/WebGoat", "fix": "Add rate limiting / lockout on authentication and sensitive endpoints.", "links": [{"verb": "shares context with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}], "linkTotal": 4}, {"rank": 7, "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "tier": "P3", "tierLabel": "Schedule", "type": "missing_xfo", "layer": "client", "severity": "medium", "asset": "http://localhost:8081/WebGoat", "fix": "Send X-Frame-Options: DENY (or CSP frame-ancestors).", "links": [{"verb": "shares context with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_013", "name": "No rate limiting detected on endpoint", "score": 5.38, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}], "linkTotal": 8}, {"rank": 8, "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "tier": "P3", "tierLabel": "Schedule", "type": "missing_hsts", "layer": "ssl", "severity": "medium", "asset": "http://localhost:8081/WebGoat", "fix": "Send Strict-Transport-Security with a long max-age.", "links": [{"verb": "shares context with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_013", "name": "No rate limiting detected on endpoint", "score": 5.38, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_003", "name": "No TLS/HTTPS listener", "score": 5.46, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family."}], "linkTotal": 5}, {"rank": 9, "id": "VULN_011", "name": "User Controllable HTML Element Attribute (Potential XSS)", "score": 3.63, "tier": "P3", "tierLabel": "Schedule", "type": "xss", "layer": "application", "severity": "info", "asset": "http://host.docker.internal:8081/WebGoat", "fix": "Context-aware output encoding, input validation and a strict CSP.", "links": [{"verb": "can be chained with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "chaining", "weight": 0.9, "reason": "A Content-Security-Policy is a primary mitigation against XSS payload execution; its absence directly increases the impact of the XSS finding."}, {"verb": "shares context with", "id": "VULN_012", "name": "SQL Injection", "score": 8.21, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://host.docker.internal:8081/WebGoat/register.mvc'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_012", "name": "SQL Injection", "score": 8.21, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'input_validation_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}, {"verb": "shares context with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}], "linkTotal": 7}, {"rank": 10, "id": "VULN_002", "name": "Weak/unencrypted protocol in use: http", "score": 3.55, "tier": "P3", "tierLabel": "Schedule", "type": "weak_protocol", "layer": "network", "severity": "low", "asset": "127.0.0.1", "fix": "Replace the cleartext protocol with its encrypted equivalent.", "links": [{"verb": "shares a root cause with", "id": "VULN_001", "name": "Open port 8081/tcp (http)", "score": 2.97, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_001", "name": "Open port 8081/tcp (http)", "score": 2.97, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network')."}, {"verb": "shares context with", "id": "VULN_003", "name": "No TLS/HTTPS listener", "score": 5.46, "type": "co_context", "weight": 0.3, "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."}], "linkTotal": 3}, {"rank": 11, "id": "VULN_010", "name": "X-Content-Type-Options Header Missing", "score": 3.52, "tier": "P3", "tierLabel": "Schedule", "type": "missing_xcto", "layer": "application", "severity": "low", "asset": "http://host.docker.internal:8081/WebGoat", "fix": "Send X-Content-Type-Options: nosniff.", "links": [{"verb": "shares a root cause with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_008", "name": "Missing Anti-clickjacking Header", "score": 5.44, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares a root cause with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_012", "name": "SQL Injection", "score": 8.21, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset 'http://host.docker.internal:8081/WebGoat' and the same security layer ('application')."}], "linkTotal": 8}, {"rank": 12, "id": "VULN_007", "name": "Missing security header: X-Content-Type-Options", "score": 3.31, "tier": "P4", "tierLabel": "Low / monitor", "type": "missing_xcto", "layer": "client", "severity": "low", "asset": "http://localhost:8081/WebGoat", "fix": "Send X-Content-Type-Options: nosniff.", "links": [{"verb": "shares context with", "id": "VULN_005", "name": "Missing security header: Content-Security-Policy", "score": 5.56, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_013", "name": "No rate limiting detected on endpoint", "score": 5.38, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_006", "name": "Missing security header: X-Frame-Options", "score": 5.3, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares context with", "id": "VULN_004", "name": "Missing HSTS header", "score": 5.21, "type": "co_context", "weight": 0.85, "reason": "Both findings share the exact same target ('http://localhost:8081/WebGoat'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data."}, {"verb": "shares a root cause with", "id": "VULN_009", "name": "Content Security Policy (CSP) Header Not Set", "score": 5.91, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family."}], "linkTotal": 8}, {"rank": 13, "id": "VULN_001", "name": "Open port 8081/tcp (http)", "score": 2.97, "tier": "P4", "tierLabel": "Low / monitor", "type": "open_port", "layer": "network", "severity": "low", "asset": "127.0.0.1", "fix": "Close or firewall services that do not need to be exposed.", "links": [{"verb": "shares a root cause with", "id": "VULN_002", "name": "Weak/unencrypted protocol in use: http", "score": 3.55, "type": "shared_root_cause", "weight": 0.6, "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family."}, {"verb": "shares context with", "id": "VULN_002", "name": "Weak/unencrypted protocol in use: http", "score": 3.55, "type": "co_context", "weight": 0.55, "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network')."}, {"verb": "shares context with", "id": "VULN_003", "name": "No TLS/HTTPS listener", "score": 5.46, "type": "co_context", "weight": 0.3, "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id)."}], "linkTotal": 3}], "count": 13};
+const STEPS = [
+  ["Scanning seven layers", "network · TLS · headers · cookies · application · API · dependencies"],
+  ["Normalising findings", "13 findings into one common format"],
+  ["Building the vulnerability graph", "13 nodes · 40 links"],
+  ["Scoring with the graph attention network", "context-aware risk per finding"],
+  ["Writing the priority report", "ranked, with fixes and linked findings"]
+];
+const DEMO_TARGET = "owasp.org/projects/webgoat";
+const $ = id => document.getElementById(id);
+const show = id => { ["s1", "s2", "s3"].forEach(s => $(s).hidden = s !== id); window.scrollTo(0, 0); };
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const byId = Object.fromEntries(DATA.report.map(r => [r.id, r]));
+const edgeColor = t => css(t === "chaining" ? "--e-chain" : t === "co_context" ? "--e-ctx" : "--e-root");
+const tierVar = t => css("--" + t.toLowerCase());
+let network, nodes, edges, selected = null, timers = [];
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+/* ---- screen 1 -> 2 -> 3 ---- */
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const url = $("url").value.trim() || $("url").placeholder;
+  const key = url.toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[?#]/)[0].replace(/\/+$/, "");
+  if (key !== DEMO_TARGET) {
+    $("err").textContent = "This demo only works with https://owasp.org/projects/webgoat. Please enter that link.";
+    $("err").hidden = false;
+    return;
+  }
+  $("err").hidden = true;
+  $("tgt").textContent = url; $("tgt2").textContent = url;
+  runLoading();
+});
+$("again").addEventListener("click", () => { timers.forEach(clearTimeout); if (network) { network.destroy(); network = null; } selected = null; show("s1"); $("url").focus(); });
+
+function runLoading() {
+  show("s2");
+  $("steps").innerHTML = STEPS.map((s, i) => `<li data-i="${i}"><span class="dot">✓</span><span>${esc(s[0])}<small>${esc(s[1])}</small></span></li>`).join("");
+  const lis = [...$("steps").children]; $("barfill").style.width = "0";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, gap = reduce ? 500 : 1300;
+  lis.forEach((li, i) => {
+    timers.push(setTimeout(() => {
+      if (i) lis[i - 1].className = "done";
+      li.className = "on"; $("barfill").style.width = ((i + 0.5) / lis.length * 100) + "%";
+    }, i * gap));
+  });
+  timers.push(setTimeout(() => { lis[lis.length - 1].className = "done"; $("barfill").style.width = "100%"; }, lis.length * gap));
+  timers.push(setTimeout(() => { renderResults(); }, lis.length * gap + 500));
+}
+
+/* ---- results ---- */
+function renderResults() {
+  show("s3");
+  const counts = { P1: 0, P2: 0, P3: 0, P4: 0 };
+  DATA.report.forEach(r => counts[r.tier]++);
+  const labels = { P1: "Fix immediately", P2: "Fix soon", P3: "Schedule", P4: "Low / monitor" };
+  $("chips").innerHTML = Object.keys(counts).map(k => `<div class="chip ${k.toLowerCase()}"><b>${counts[k]}</b><span>${k} ${labels[k]}</span></div>`).join("");
+  $("count").textContent = DATA.count + " vulnerabilities, ranked by risk";
+  $("rows").innerHTML = DATA.report.map(r => `
+    <div class="item" data-id="${r.id}">
+      <button class="row t-${r.tier}" aria-expanded="false" data-id="${r.id}">
+        <span class="rk">${r.rank}</span>
+        <span class="nm"><b>${esc(r.name)}</b><small>${r.id} · ${esc(r.layer)}</small></span>
+        <span class="tier">${r.tier} ${labels[r.tier].split(" ")[0]}</span>
+        <span class="sc" style="color:var(--fg)">${r.score.toFixed(2)}</span>
+        <span class="scorebar"><i style="width:${r.score * 10}%"></i></span>
+      </button>
+      <div class="detail" hidden></div>
+    </div>`).join("");
+  document.querySelectorAll(".row").forEach(b => b.addEventListener("click", () => select(b.dataset.id, true)));
+  drawGraph();
+}
+
+function detailHTML(r) {
+  const more = r.linkTotal - r.links.length;
+  return `<dl class="kv">
+      <dt>Score</dt><dd><b>${r.score.toFixed(2)}</b> / 10 · ${esc(r.tierLabel)}</dd>
+      <dt>Type</dt><dd>${esc(r.type)} · ${esc(r.layer)} layer · scanner severity ${esc(r.severity)}</dd>
+      <dt>Asset</dt><dd class="mono">${esc(r.asset)}</dd>
+      <dt>Fix</dt><dd>${esc(r.fix)}</dd>
+    </dl>
+    <div><b style="font-size:13px">Linked vulnerabilities (${r.linkTotal})</b></div>
+    <ul class="links">${r.links.map(l => `<li class="${l.type}">${esc(l.verb)} <button data-go="${l.id}">${l.id}</button> ${esc(l.name)}, score ${l.score.toFixed(2)}
+        <span class="why">${esc(l.type.replace(/_/g, " "))}, weight ${l.weight} · ${esc(l.reason)}</span></li>`).join("")}</ul>
+    ${more > 0 ? `<div class="more">and ${more} more links, shown in the graph</div>` : ""}`;
+}
+
+function select(id, fromRow) {
+  const open = selected === id && fromRow;
+  selected = open ? null : id;
+  document.querySelectorAll(".item").forEach(it => {
+    const on = it.dataset.id === selected, d = it.querySelector(".detail");
+    it.querySelector(".row").setAttribute("aria-expanded", on);
+    d.hidden = !on;
+    if (on) {
+      d.innerHTML = detailHTML(byId[it.dataset.id]);
+      d.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => select(b.dataset.go, false)));
+    }
+  });
+  highlight();
+  if (selected) { const el = document.querySelector(`.item[data-id="${selected}"]`); if (el && !fromRow) el.scrollIntoView({ behavior: "smooth", block: "center" }); }
+}
+
+/* ---- graph ---- */
+function drawGraph() {
+  nodes = new vis.DataSet(DATA.nodes.map(n => ({
+    id: n.id, label: n.id.replace("VULN_", "#") + "\n" + n.type, shape: "dot", size: n.size + 4,
+    color: { background: n.color, border: n.color }, borderWidth: 2,
+    font: { color: css("--graph-label"), size: 12, face: "JetBrains Mono, monospace", multi: false }
+  })));
+  edges = new vis.DataSet(DATA.edges.map((e, i) => ({
+    id: i, from: e.from, to: e.to, arrows: e.directed ? "to" : "",
+    color: { color: edgeColor(e.type), opacity: e.type === "chaining" ? 1 : 0.45 },
+    width: 0.6 + e.weight * 2.4, smooth: false
+  })));
+  network = new vis.Network($("net"), { nodes, edges }, {
+    physics: { solver: "forceAtlas2Based", forceAtlas2Based: { gravitationalConstant: -60, springLength: 110, springConstant: 0.05 }, stabilization: { iterations: 200 } },
+    interaction: { hover: true, zoomView: true },
+    nodes: { shadow: false }
+  });
+  network.once("stabilizationIterationsDone", () => { network.setOptions({ physics: false }); network.fit({ animation: false }); });
+  network.on("click", p => { if (p.nodes.length) select(p.nodes[0], false); else if (selected) select(selected, true); });
+  highlight();
+}
+
+function highlight() {
+  if (!nodes) return;
+  const near = new Set();
+  if (selected) { near.add(selected); DATA.edges.forEach(e => { if (e.from === selected) near.add(e.to); if (e.to === selected) near.add(e.from); }); }
+  nodes.update(DATA.nodes.map(n => ({
+    id: n.id, opacity: !selected || near.has(n.id) ? 1 : 0.18,
+    borderWidth: n.id === selected ? 5 : 2,
+    color: { background: n.color, border: n.id === selected ? css("--fg") : n.color }
+  })));
+  edges.update(DATA.edges.map((e, i) => {
+    const hot = !selected || e.from === selected || e.to === selected;
+    return { id: i, color: { color: edgeColor(e.type), opacity: hot ? (e.type === "chaining" ? 1 : selected ? 0.9 : 0.45) : 0.06 } };
+  }));
+}
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if (network) setTimeout(() => { nodes.update(DATA.nodes.map(n => ({ id: n.id, font: { color: css("--graph-label") } }))); highlight(); }, 50); });
+</script>
+
+</body></html>

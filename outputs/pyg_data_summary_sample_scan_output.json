@@ -1,0 +1,37 @@
+{
+  "source_graph": "outputs/graph_sample_scan_output.json",
+  "source_features": "outputs/features_sample_scan_output.json",
+  "num_nodes": 20,
+  "feature_dim": 33,
+  "num_directed_edges_in_edge_index": 157,
+  "directed_edge_count_by_type": {
+    "chaining": 7,
+    "co_context": 114,
+    "shared_root_cause": 36
+  },
+  "edge_attr_dim": 4,
+  "edge_attr_layout": [
+    "chaining",
+    "co_context",
+    "shared_root_cause",
+    "weight"
+  ],
+  "symmetric_edge_types_expanded_to_both_directions": [
+    "co_context",
+    "shared_root_cause"
+  ],
+  "directional_edge_types_kept_single_direction": [
+    "chaining"
+  ],
+  "isolated_node_ids": [],
+  "y_status": "not set (None) -- see module docstring 'Why there is no y yet'; requires Phase 7 (Training Target) to be done first",
+  "original_graph_node_count": 20,
+  "original_graph_edge_count": 82,
+  "original_graph_edge_count_by_type": {
+    "chaining": 7,
+    "co_context": 57,
+    "shared_root_cause": 18
+  },
+  "conversion_warnings": [],
+  "pyg_validate": "passed"
+}

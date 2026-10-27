@@ -1,0 +1,102 @@
+{
+  "scan_metadata": {
+    "target_url": "http://localhost:3000",
+    "target_host": "127.0.0.1",
+    "project_path": null,
+    "layers_scanned": [
+      "network",
+      "ssl",
+      "client",
+      "api",
+      "fingerprint"
+    ],
+    "timestamp": "2026-08-17T19:28:30.592846+00:00",
+    "errors": []
+  },
+  "findings": [
+    {
+      "layer": "network",
+      "target": "127.0.0.1",
+      "name": "Open port 3000/tcp (ppp)",
+      "type": "open_port",
+      "severity": "info",
+      "description": "Port 3000/tcp is open running ppp",
+      "evidence": "port=3000, proto=tcp, service=ppp, product=, version=",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "eeba106f-9976-49ef-bb51-c0aefb2a954e",
+      "timestamp": "2026-08-17T19:28:30.451292+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "127.0.0.1:3000",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "severity": "medium",
+      "description": "Could not establish TLS connection: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1129)",
+      "evidence": "[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1129)",
+      "asset": "127.0.0.1",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "a63459c2-3d88-40c4-b5d3-544eaea201e4",
+      "timestamp": "2026-08-17T19:28:30.459015+00:00"
+    },
+    {
+      "layer": "ssl",
+      "target": "http://localhost:3000",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "severity": "medium",
+      "description": "Response does not set Strict-Transport-Security.",
+      "evidence": "headers_present=['Access-Control-Allow-Origin', 'X-Content-Type-Options', 'X-Frame-Options', 'Feature-Policy', 'X-Recruiting', 'Accept-Ranges', 'Cache-Control', 'Last-Modified', 'ETag', 'Content-Type', 'Vary', 'Content-Encoding', 'Date', 'Connection', 'Keep-Alive', 'Transfer-Encoding']",
+      "asset": "http://localhost:3000",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "fd32ea73-cfb1-458d-b64e-76204d2baf5d",
+      "timestamp": "2026-08-17T19:28:30.474220+00:00"
+    },
+    {
+      "layer": "client",
+      "target": "http://localhost:3000",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "severity": "medium",
+      "description": "Response does not set the Content-Security-Policy header.",
+      "evidence": "headers_present=['Access-Control-Allow-Origin', 'X-Content-Type-Options', 'X-Frame-Options', 'Feature-Policy', 'X-Recruiting', 'Accept-Ranges', 'Cache-Control', 'Last-Modified', 'ETag', 'Content-Type', 'Vary', 'Content-Encoding', 'Date', 'Connection', 'Keep-Alive', 'Transfer-Encoding']",
+      "asset": "http://localhost:3000",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "d417403d-399b-4823-8f40-abf71c1adb8b",
+      "timestamp": "2026-08-17T19:28:30.477701+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:3000",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "severity": "medium",
+      "description": "Sent 20 rapid requests with no throttling response (429/Retry-After).",
+      "evidence": "requests_sent=20, throttled=False",
+      "asset": "http://localhost:3000",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "3e6a8334-51d5-4356-b2fa-bbed728b526b",
+      "timestamp": "2026-08-17T19:28:30.540247+00:00"
+    },
+    {
+      "layer": "api",
+      "target": "http://localhost:3000",
+      "name": "Potential IDOR via sequential 'id' parameter",
+      "type": "idor",
+      "severity": "medium",
+      "description": "5 sequential IDs returned 200 OK with no apparent access control \u2014 flag for manual verification.",
+      "evidence": "tested_ids=[1, 2, 3, 4, 5], results=[(1, 200, 9393), (2, 200, 9393), (3, 200, 9393), (4, 200, 9393), (5, 200, 9393)]",
+      "asset": "http://localhost:3000",
+      "cvss_score": null,
+      "cve_id": null,
+      "id": "691ec336-7483-4e83-9ef5-64f5d3a91d7f",
+      "timestamp": "2026-08-17T19:28:30.590397+00:00"
+    }
+  ]
+}

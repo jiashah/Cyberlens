@@ -1,0 +1,982 @@
+{
+  "dataset": "dvwa_all_layers",
+  "vulnerability_count": 13,
+  "priority_summary": {
+    "P1 - Fix immediately": 0,
+    "P2 - Fix soon": 2,
+    "P3 - Schedule": 8,
+    "P4 - Low / monitor": 3
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_010",
+      "name": "Content Security Policy (CSP) Header Not Set",
+      "type": "missing_csp",
+      "layer": "application",
+      "scanner_severity": "medium",
+      "asset": "http://host.docker.internal:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.64,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.37
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.41
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 5.37
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 3.41
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_005",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.61,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.37
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.41
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.47,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 4280/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 2.97
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_013",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.44,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 4
+    },
+    {
+      "node_id": "VULN_011",
+      "name": "Missing Anti-clickjacking Header",
+      "type": "missing_xfo",
+      "layer": "application",
+      "scanner_severity": "medium",
+      "asset": "http://host.docker.internal:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.37,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.41
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 3.41
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 5
+    },
+    {
+      "node_id": "VULN_009",
+      "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+      "type": "cookie_missing_httponly",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.36,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'cookie_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Set the HttpOnly flag on session cookies.",
+      "rank": 6
+    },
+    {
+      "node_id": "VULN_008",
+      "name": "Cookie 'PHPSESSID' missing Secure flag",
+      "type": "cookie_missing_secure",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.3,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'cookie_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Set the Secure flag on session cookies.",
+      "rank": 7
+    },
+    {
+      "node_id": "VULN_006",
+      "name": "Missing security header: X-Frame-Options",
+      "type": "missing_xfo",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.29,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_012",
+          "name": "X-Content-Type-Options Header Missing",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.41
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 3.37
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Frame-Options: DENY (or CSP frame-ancestors).",
+      "rank": 8
+    },
+    {
+      "node_id": "VULN_004",
+      "name": "Missing HSTS header",
+      "type": "missing_hsts",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 5.21,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'transport_security_gap' configuration-weakness family.",
+          "predicted_score": 5.47
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_007",
+          "name": "Missing security header: X-Content-Type-Options",
+          "vuln_type": "missing_xcto",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 3.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send Strict-Transport-Security with a long max-age.",
+      "rank": 9
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "Weak/unencrypted protocol in use: http",
+      "type": "weak_protocol",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 3.55,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 4280/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_001",
+          "name": "Open port 4280/tcp (http)",
+          "vuln_type": "open_port",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 2.97
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.47
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Replace the cleartext protocol with its encrypted equivalent.",
+      "rank": 10
+    },
+    {
+      "node_id": "VULN_012",
+      "name": "X-Content-Type-Options Header Missing",
+      "type": "missing_xcto",
+      "layer": "application",
+      "scanner_severity": "low",
+      "asset": "http://host.docker.internal:4280",
+      "scanner_cvss": null,
+      "predicted_score": 3.41,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.37
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://host.docker.internal:4280' and the same security layer ('application').",
+          "predicted_score": 5.37
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 11
+    },
+    {
+      "node_id": "VULN_007",
+      "name": "Missing security header: X-Content-Type-Options",
+      "type": "missing_xcto",
+      "layer": "client",
+      "scanner_severity": "low",
+      "asset": "http://localhost:4280",
+      "scanner_cvss": null,
+      "predicted_score": 3.37,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_010",
+          "name": "Content Security Policy (CSP) Header Not Set",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.64
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_011",
+          "name": "Missing Anti-clickjacking Header",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.37
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'header_hardening_gap' configuration-weakness family.",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_005",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.61
+        },
+        {
+          "node_id": "VULN_009",
+          "name": "Cookie 'PHPSESSID' missing HttpOnly flag",
+          "vuln_type": "cookie_missing_httponly",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.36
+        },
+        {
+          "node_id": "VULN_008",
+          "name": "Cookie 'PHPSESSID' missing Secure flag",
+          "vuln_type": "cookie_missing_secure",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.3
+        },
+        {
+          "node_id": "VULN_006",
+          "name": "Missing security header: X-Frame-Options",
+          "vuln_type": "missing_xfo",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset 'http://localhost:4280' and the same security layer ('client').",
+          "predicted_score": 5.29
+        },
+        {
+          "node_id": "VULN_013",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.44
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Missing HSTS header",
+          "vuln_type": "missing_hsts",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset 'http://localhost:4280' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.21
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Send X-Content-Type-Options: nosniff.",
+      "rank": 12
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "Open port 4280/tcp (http)",
+      "type": "open_port",
+      "layer": "network",
+      "scanner_severity": "low",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 2.97,
+      "priority": "P4 - Low / monitor",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'exposed_surface_gap' configuration-weakness family.",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_002",
+          "name": "Weak/unencrypted protocol in use: http",
+          "vuln_type": "weak_protocol",
+          "type": "co_context",
+          "weight": 0.55,
+          "reason": "Both findings share asset '127.0.0.1' and the same security layer ('network').",
+          "predicted_score": 3.55
+        },
+        {
+          "node_id": "VULN_003",
+          "name": "No TLS/HTTPS listener",
+          "vuln_type": "missing_tls_cert",
+          "type": "co_context",
+          "weight": 0.3,
+          "reason": "Both findings share asset '127.0.0.1' with no stronger endpoint or layer evidence available; selected as a top-2 contextual neighbor (tie-break: shared root-cause family, then severity, then node id).",
+          "predicted_score": 5.47
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Close or firewall services that do not need to be exposed.",
+      "rank": 13
+    }
+  ]
+}

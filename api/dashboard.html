@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberLens - Vulnerability Priorities</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1b1f24;--muted:#5f6b7a;--line:#e1e5ea;--accent:#2457d6;
+--p1:#c62828;--p2:#e67e00;--p3:#b59b00;--p4:#2e7d32}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--text:#e6e9ee;--muted:#9aa5b4;--line:#2d333c;--accent:#7aa2ff;
+--p1:#ef5350;--p2:#ffa726;--p3:#d4c030;--p4:#66bb6a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}h1{font-size:22px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+#drop{border:2px dashed var(--line);text-align:center;padding:28px;cursor:pointer;color:var(--muted)}#drop.over{border-color:var(--accent)}
+button{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:8px 14px;font:inherit;cursor:pointer}
+.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{border-radius:8px;padding:8px 14px;border:1px solid var(--line);min-width:150px}
+.chip b{font-size:22px;display:block}.chip span{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}tr.row{cursor:pointer}tr.row:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.bar{height:8px;border-radius:4px;background:var(--line);min-width:90px;overflow:hidden}.bar i{display:block;height:100%}
+.tag{font-size:12px;border-radius:99px;padding:2px 9px;color:#fff;white-space:nowrap}
+.detail td{background:color-mix(in srgb,var(--accent) 4%,transparent)}.detail h4{margin:10px 0 4px;font-size:13px}
+.detail ul{margin:0;padding-left:18px}.muted{color:var(--muted)}.err{color:var(--p1)}.warn{color:var(--p2);font-size:13px}
+@media (max-width:640px){.hide-s{display:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>CyberLens</h1>
+<p class="sub">Upload a raw scanner JSON. Get every vulnerability scored, linked and prioritised.</p>
+<div class="card" id="drop" tabindex="0">Drop a scan <code>.json</code> here or click to choose a file<input id="file" type="file" accept=".json,application/json" hidden></div>
+<div id="status" class="muted"></div>
+<div id="out" hidden>
+  <div class="card"><div class="chips" id="chips"></div><p id="warnings" class="warn"></p></div>
+  <div class="card"><table><thead><tr><th>#</th><th>ID</th><th>Vulnerability</th><th>Score</th><th class="hide-s">Priority</th></tr></thead><tbody id="rows"></tbody></table></div>
+  <button id="dl">Download JSON report</button>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);let report=null;
+const COLORS=['var(--p1)','var(--p2)','var(--p3)','var(--p4)'];
+function el(tag,attrs,...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs||{}))k==='class'?e.className=v:k==='style'?e.style.cssText=v:e.setAttribute(k,v);
+  for(const c of kids.flat())e.append(c instanceof Node?c:document.createTextNode(c??''));return e}
+function tierColor(label){const i=Object.keys(report.priority_summary).indexOf(label);return COLORS[Math.min(Math.max(i,0),3)]}
+function list(title,items,fmt){if(!items.length)return null;return el('div',{},el('h4',{},title),el('ul',{},items.map(i=>el('li',{},fmt(i)))))}
+function render(r){
+  report=r;$('out').hidden=false;const hi=r.score_scale.max;
+  $('chips').replaceChildren(...Object.entries(r.priority_summary).map(([k,v])=>el('div',{class:'chip',style:`border-left:4px solid ${tierColor(k)}`},el('b',{},String(v)),el('span',{},k))));
+  $('warnings').textContent=(r.warnings||[]).length?'Notes: '+r.warnings.slice(0,3).join(' | '):'';
+  const body=$('rows');body.replaceChildren();
+  for(const v of r.vulnerabilities){
+    const c=tierColor(v.priority);
+    const row=el('tr',{class:'row'},el('td',{},v.rank),el('td',{},v.node_id),el('td',{},v.name),
+      el('td',{},el('div',{},v.predicted_score.toFixed(2)),el('div',{class:'bar'},el('i',{style:`width:${100*v.predicted_score/hi}%;background:${c}`}))),
+      el('td',{class:'hide-s'},el('span',{class:'tag',style:`background:${c}`},v.priority)));
+    const det=el('tr',{class:'detail',hidden:''},el('td',{colspan:5},
+      el('div',{},`Type: ${v.type} | Layer: ${v.layer} | Scanner severity: ${v.scanner_severity}`+(v.scanner_cvss!=null?` | Scanner CVSS: ${v.scanner_cvss}`:'')),
+      el('div',{class:'muted'},`Asset: ${v.asset}`),el('div',{},el('b',{},'Fix: '),v.fix_hint),
+      list('Linked vulnerabilities',v.linked_vulnerabilities,l=>`${l.node_id} ${l.name} (score ${l.predicted_score.toFixed(2)}) - ${l.type}: ${l.reason}`),
+      list('Possible additional links (model-suggested, unverified)',v.suggested_links||[],s=>`${s.node_id} ${s.name} (score ${s.predicted_score.toFixed(2)}, probability ${s.probability})`)));
+    row.onclick=()=>det.toggleAttribute('hidden');body.append(row,det);
+  }
+}
+async function send(file){
+  $('status').className='muted';$('status').textContent='Analysing '+file.name+' ...';
+  const fd=new FormData();fd.append('file',file);
+  try{const res=await fetch('/analyze/upload',{method:'POST',body:fd});const j=await res.json();
+    if(!res.ok)throw new Error(j.detail||res.statusText);$('status').textContent='';render(j)}
+  catch(e){$('status').className='err';$('status').textContent='Error: '+e.message;$('out').hidden=true}
+}
+const drop=$('drop'),input=$('file');
+drop.onclick=()=>input.click();input.onchange=()=>input.files[0]&&send(input.files[0]);
+drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove('over');e.dataTransfer.files[0]&&send(e.dataTransfer.files[0])};
+$('dl').onclick=()=>{const a=el('a',{href:URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'})),download:`priority_report_${report.dataset}.json`});a.click()};
+</script>
+</body>
+</html>

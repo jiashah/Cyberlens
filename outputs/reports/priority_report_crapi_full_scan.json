@@ -1,0 +1,117 @@
+{
+  "dataset": "crapi_full_scan",
+  "vulnerability_count": 4,
+  "priority_summary": {
+    "P1 - Fix immediately": 0,
+    "P2 - Fix soon": 1,
+    "P3 - Schedule": 3,
+    "P4 - Low / monitor": 0
+  },
+  "score_scale": {
+    "min": 0.0,
+    "max": 10.0
+  },
+  "score_config_fingerprint": "d315ddb634b3",
+  "warnings": [],
+  "vulnerabilities": [
+    {
+      "node_id": "VULN_004",
+      "name": "Potential IDOR/BOLA via sequential object IDs",
+      "type": "idor",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8888/workshop/api/shop/orders",
+      "scanner_cvss": null,
+      "predicted_score": 5.96,
+      "priority": "P2 - Fix soon",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_003",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 5.49
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Enforce server-side object-level authorisation on every request.",
+      "rank": 1
+    },
+    {
+      "node_id": "VULN_003",
+      "name": "No rate limiting detected on endpoint",
+      "type": "missing_rate_limit",
+      "layer": "api",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8888/identity/api/auth/login",
+      "scanner_cvss": null,
+      "predicted_score": 5.49,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_002",
+          "name": "Missing security header: Content-Security-Policy",
+          "vuln_type": "missing_csp",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8888/identity/api/auth/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.15
+        },
+        {
+          "node_id": "VULN_004",
+          "name": "Potential IDOR/BOLA via sequential object IDs",
+          "vuln_type": "idor",
+          "type": "shared_root_cause",
+          "weight": 0.6,
+          "reason": "Both finding types belong to the 'access_control_gap' configuration-weakness family.",
+          "predicted_score": 5.96
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add rate limiting / lockout on authentication and sensitive endpoints.",
+      "rank": 2
+    },
+    {
+      "node_id": "VULN_001",
+      "name": "No TLS/HTTPS listener",
+      "type": "missing_tls_cert",
+      "layer": "ssl",
+      "scanner_severity": "medium",
+      "asset": "127.0.0.1",
+      "scanner_cvss": null,
+      "predicted_score": 5.27,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [],
+      "suggested_links": [],
+      "fix_hint": "Install a valid, trusted TLS certificate.",
+      "rank": 3
+    },
+    {
+      "node_id": "VULN_002",
+      "name": "Missing security header: Content-Security-Policy",
+      "type": "missing_csp",
+      "layer": "client",
+      "scanner_severity": "medium",
+      "asset": "http://localhost:8888/identity/api/auth/login",
+      "scanner_cvss": null,
+      "predicted_score": 5.15,
+      "priority": "P3 - Schedule",
+      "linked_vulnerabilities": [
+        {
+          "node_id": "VULN_003",
+          "name": "No rate limiting detected on endpoint",
+          "vuln_type": "missing_rate_limit",
+          "type": "co_context",
+          "weight": 0.85,
+          "reason": "Both findings share the exact same target ('http://localhost:8888/identity/api/auth/login'), which contains fine-grained endpoint/service/component evidence (a path, port, or package identifier) -- the strongest evidence available in the current scanner data.",
+          "predicted_score": 5.49
+        }
+      ],
+      "suggested_links": [],
+      "fix_hint": "Add a restrictive Content-Security-Policy header.",
+      "rank": 4
+    }
+  ]
+}
